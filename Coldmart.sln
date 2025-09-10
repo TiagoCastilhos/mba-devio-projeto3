@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pagamentos", "Pagamentos", "{3CB1A534-8A62-4118-9451-79511BDC4EFA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cursos", "Cursos", "{FAB7C805-97C9-4A2F-8D5D-2AE9B480E28C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldmart.Core.Tests", "tests\Coldmart.Core.Tests\Coldmart.Core.Tests.csproj", "{AEF8A624-9ECF-78C1-D333-86591BBE18B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldmart.Core", "src\Coldmart.Core\Coldmart.Core.csproj", "{9E78DEFD-5F19-30EC-6DA8-FCF2CED4FF9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldmart.Cursos.Domain", "src\Coldmart.Cursos.Domain\Coldmart.Cursos.Domain.csproj", "{13ACC593-9452-E9E3-874A-488AC595F97C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldmart.Cursos.Domain.Tests", "tests\Coldmart.Cursos.Domain.Tests\Coldmart.Cursos.Domain.Tests.csproj", "{F6EF255F-1A37-4C5E-B7F6-E82ABF000D65}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AEF8A624-9ECF-78C1-D333-86591BBE18B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEF8A624-9ECF-78C1-D333-86591BBE18B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEF8A624-9ECF-78C1-D333-86591BBE18B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEF8A624-9ECF-78C1-D333-86591BBE18B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E78DEFD-5F19-30EC-6DA8-FCF2CED4FF9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E78DEFD-5F19-30EC-6DA8-FCF2CED4FF9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E78DEFD-5F19-30EC-6DA8-FCF2CED4FF9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E78DEFD-5F19-30EC-6DA8-FCF2CED4FF9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13ACC593-9452-E9E3-874A-488AC595F97C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13ACC593-9452-E9E3-874A-488AC595F97C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13ACC593-9452-E9E3-874A-488AC595F97C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13ACC593-9452-E9E3-874A-488AC595F97C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6EF255F-1A37-4C5E-B7F6-E82ABF000D65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6EF255F-1A37-4C5E-B7F6-E82ABF000D65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6EF255F-1A37-4C5E-B7F6-E82ABF000D65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6EF255F-1A37-4C5E-B7F6-E82ABF000D65}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AEF8A624-9ECF-78C1-D333-86591BBE18B8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{9E78DEFD-5F19-30EC-6DA8-FCF2CED4FF9F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{13ACC593-9452-E9E3-874A-488AC595F97C} = {FAB7C805-97C9-4A2F-8D5D-2AE9B480E28C}
+		{F6EF255F-1A37-4C5E-B7F6-E82ABF000D65} = {FAB7C805-97C9-4A2F-8D5D-2AE9B480E28C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {49315F09-E792-4EDA-98D4-59D38BA8AB60}
+	EndGlobalSection
+EndGlobal
