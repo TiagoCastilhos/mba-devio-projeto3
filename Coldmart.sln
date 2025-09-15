@@ -17,6 +17,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldmart.Cursos.Domain", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldmart.Cursos.Domain.Tests", "tests\Coldmart.Cursos.Domain.Tests\Coldmart.Cursos.Domain.Tests.csproj", "{F6EF255F-1A37-4C5E-B7F6-E82ABF000D65}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Alunos", "Alunos", "{0A1F7A4C-2FCB-483E-A9E2-0F4E60B5C24A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldmart.Alunos.Domain", "src\Coldmart.Alunos.Domain\Coldmart.Alunos.Domain.csproj", "{E47DB90D-937E-4DA5-9425-CD82BDB36B46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldmart.Alunos.Domain.Tests", "tests\Coldmart.Alunos.Domain.Tests\Coldmart.Alunos.Domain.Tests.csproj", "{2EFC67A1-17CA-4811-9B7D-3AEB5F237905}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldmart.Pagamentos.Domain", "src\Coldmart.Pagamentos.Domain\Coldmart.Pagamentos.Domain.csproj", "{53CA63AD-7AB5-4AE8-AA0E-1F60C509B5D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldmart.Pagamentos.Domain.Tests", "tests\Coldmart.Pagamentos.Domain.Tests\Coldmart.Pagamentos.Domain.Tests.csproj", "{8E614DEC-4F49-4749-BF92-9E6A9465FD5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +49,22 @@ Global
 		{F6EF255F-1A37-4C5E-B7F6-E82ABF000D65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6EF255F-1A37-4C5E-B7F6-E82ABF000D65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6EF255F-1A37-4C5E-B7F6-E82ABF000D65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E47DB90D-937E-4DA5-9425-CD82BDB36B46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E47DB90D-937E-4DA5-9425-CD82BDB36B46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E47DB90D-937E-4DA5-9425-CD82BDB36B46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E47DB90D-937E-4DA5-9425-CD82BDB36B46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EFC67A1-17CA-4811-9B7D-3AEB5F237905}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EFC67A1-17CA-4811-9B7D-3AEB5F237905}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EFC67A1-17CA-4811-9B7D-3AEB5F237905}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EFC67A1-17CA-4811-9B7D-3AEB5F237905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53CA63AD-7AB5-4AE8-AA0E-1F60C509B5D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53CA63AD-7AB5-4AE8-AA0E-1F60C509B5D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53CA63AD-7AB5-4AE8-AA0E-1F60C509B5D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53CA63AD-7AB5-4AE8-AA0E-1F60C509B5D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E614DEC-4F49-4749-BF92-9E6A9465FD5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E614DEC-4F49-4749-BF92-9E6A9465FD5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E614DEC-4F49-4749-BF92-9E6A9465FD5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E614DEC-4F49-4749-BF92-9E6A9465FD5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +74,10 @@ Global
 		{9E78DEFD-5F19-30EC-6DA8-FCF2CED4FF9F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{13ACC593-9452-E9E3-874A-488AC595F97C} = {FAB7C805-97C9-4A2F-8D5D-2AE9B480E28C}
 		{F6EF255F-1A37-4C5E-B7F6-E82ABF000D65} = {FAB7C805-97C9-4A2F-8D5D-2AE9B480E28C}
+		{E47DB90D-937E-4DA5-9425-CD82BDB36B46} = {0A1F7A4C-2FCB-483E-A9E2-0F4E60B5C24A}
+		{2EFC67A1-17CA-4811-9B7D-3AEB5F237905} = {0A1F7A4C-2FCB-483E-A9E2-0F4E60B5C24A}
+		{53CA63AD-7AB5-4AE8-AA0E-1F60C509B5D4} = {3CB1A534-8A62-4118-9451-79511BDC4EFA}
+		{8E614DEC-4F49-4749-BF92-9E6A9465FD5E} = {3CB1A534-8A62-4118-9451-79511BDC4EFA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {49315F09-E792-4EDA-98D4-59D38BA8AB60}
