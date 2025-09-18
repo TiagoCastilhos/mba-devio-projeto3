@@ -4,7 +4,7 @@ namespace Coldmart.Alunos.Domain;
 
 public class HistoricoAprendizado : Entity
 {
-    public required Aluno Aluno { get; set; }
-    public List<Certificado>? Certificados { get; set; }
+    public Aluno Aluno { get; protected set; }
+    public List<Certificado>? Certificados { get; protected set; }
     public List<Matricula>? Matriculas { get; set; }
 }

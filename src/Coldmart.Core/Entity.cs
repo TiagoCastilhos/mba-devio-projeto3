@@ -2,6 +2,7 @@
 
 public abstract class Entity
 {
-    public int Id { get; set; }
-    public DateTimeOffset DataCriacao { get; set; }
+    public Guid Id { get; protected set; }
+    public DateTimeOffset DataCriacao { get; protected set; }
+    public bool IsDeleted { get; protected set; }
 }
