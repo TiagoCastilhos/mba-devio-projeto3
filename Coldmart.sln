@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldmart.Cursos.Data", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldmart.Pagamentos.Data", "src\Coldmart.Pagamentos.Data\Coldmart.Pagamentos.Data.csproj", "{A24164FF-B924-4C93-BD7A-144D34019BBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldmart.Core.Data", "src\Coldmart.Core.Data\Coldmart.Core.Data.csproj", "{2C53A4DF-CDA5-4239-A5FD-B7857EA7F2ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{A24164FF-B924-4C93-BD7A-144D34019BBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A24164FF-B924-4C93-BD7A-144D34019BBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A24164FF-B924-4C93-BD7A-144D34019BBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C53A4DF-CDA5-4239-A5FD-B7857EA7F2ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C53A4DF-CDA5-4239-A5FD-B7857EA7F2ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C53A4DF-CDA5-4239-A5FD-B7857EA7F2ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C53A4DF-CDA5-4239-A5FD-B7857EA7F2ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +105,7 @@ Global
 		{B9BF085E-2259-4C30-9B86-3816424B81A1} = {0A1F7A4C-2FCB-483E-A9E2-0F4E60B5C24A}
 		{8D0FAAAA-BB32-4EC0-8DFE-7B2C444C696E} = {FAB7C805-97C9-4A2F-8D5D-2AE9B480E28C}
 		{A24164FF-B924-4C93-BD7A-144D34019BBE} = {3CB1A534-8A62-4118-9451-79511BDC4EFA}
+		{2C53A4DF-CDA5-4239-A5FD-B7857EA7F2ED} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {49315F09-E792-4EDA-98D4-59D38BA8AB60}

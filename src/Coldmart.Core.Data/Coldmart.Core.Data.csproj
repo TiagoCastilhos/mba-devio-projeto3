@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Coldmart.Alunos.Domain\Coldmart.Alunos.Domain.csproj" />
-    <ProjectReference Include="..\Coldmart.Core.Data\Coldmart.Core.Data.csproj" />
+    <ProjectReference Include="..\Coldmart.Core\Coldmart.Core.csproj" />
   </ItemGroup>
 
 </Project>
