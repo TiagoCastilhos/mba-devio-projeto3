@@ -4,6 +4,7 @@ public class Curso
 {
     public Guid Id { get; protected set; }
     public string Nome { get; protected set; }
+    public bool Deletado { get; protected set; }
 
     public Curso(Guid id, string nome)
     {

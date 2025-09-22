@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coldmart.Alunos.Data.Contexts;
 
-public sealed class AlunosDbContext : IdentityDbContext
+public sealed class AlunosDbContext : IdentityDbContext, IAlunosDbContext
 {
     public DbSet<Aluno> Alunos { get; set; }
     public DbSet<Matricula> Matriculas { get; set; }
