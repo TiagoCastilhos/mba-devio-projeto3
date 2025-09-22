@@ -6,9 +6,9 @@ namespace Coldmart.Core.Data.Configurations;
 public abstract class EntityTypeConfiguration<T> : IEntityTypeConfiguration<T> where T : Entity
 {
     public abstract string TableName { get; }
-    public abstract void Configure(EntityTypeBuilder<T> builder);
+    public abstract void ConfigureEntity(EntityTypeBuilder<T> builder);
 
-    public void ConfigureBase(EntityTypeBuilder<T> builder)
+    public void Configure(EntityTypeBuilder<T> builder)
     {
         builder
             .ToTable(TableName);
@@ -33,6 +33,6 @@ public abstract class EntityTypeConfiguration<T> : IEntityTypeConfiguration<T> w
         builder
             .HasQueryFilter(e => !e.Deletado);
 
-        Configure(builder);
+        ConfigureEntity(builder);
     }
 }

@@ -8,7 +8,7 @@ internal sealed class AlunoConfiguration : EntityTypeConfiguration<Aluno>
 {
     public override string TableName => "Aluno";
 
-    public override void Configure(EntityTypeBuilder<Aluno> builder)
+    public override void ConfigureEntity(EntityTypeBuilder<Aluno> builder)
     {
         builder
             .Property(a => a.Nome)
