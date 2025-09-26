@@ -2,7 +2,9 @@
 using Coldmart.Alunos.Data.Contexts;
 using Coldmart.Alunos.Domain;
 using Coldmart.Core.Contexts;
+using Coldmart.Core.Eventos;
 using Coldmart.Core.Notificacao;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coldmart.Alunos.Business.Services;
@@ -12,12 +14,14 @@ public class AlunoService
     private readonly IAlunosDbContext _dbContext;
     private readonly IUsuarioContext _usuarioContext;
     private readonly INotificador _notificador;
+    private readonly IMediator _mediator;
 
-    public AlunoService(IAlunosDbContext dbContext, IUsuarioContext usuarioContext, INotificador notificador)
+    public AlunoService(IAlunosDbContext dbContext, IUsuarioContext usuarioContext, INotificador notificador, IMediator mediator)
     {
         _dbContext = dbContext;
         _usuarioContext = usuarioContext;
         _notificador = notificador;
+        _mediator = mediator;
     }
 
     public async Task MatricularAoCursoAsync(MatriculaViewModel viewModel, CancellationToken cancellationToken)
@@ -42,5 +46,6 @@ public class AlunoService
         await _dbContext.Matriculas.AddAsync(matricula, cancellationToken);
 
         await _dbContext.SaveChangesAsync(cancellationToken);
+        await _mediator.Publish(new MatriculaRealizadaEvento { AlunoId = aluno.Id, CursoId = curso.Id }, cancellationToken);
     }
 }

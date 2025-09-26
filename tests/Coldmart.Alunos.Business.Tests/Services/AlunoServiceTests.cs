@@ -4,9 +4,11 @@ using Coldmart.Alunos.Business.ViewModels;
 using Coldmart.Alunos.Data.Contexts;
 using Coldmart.Alunos.Domain;
 using Coldmart.Core.Contexts;
+using Coldmart.Core.Eventos;
 using Coldmart.Core.Notificacao;
 using Coldmart.Core.Tests.Attributes;
 using Coldmart.Core.Tests.Extensions;
+using MediatR;
 using Moq;
 
 namespace Coldmart.Alunos.Business.Tests.Services;
@@ -18,6 +20,7 @@ public class AlunoServiceTests
         [Frozen] Mock<IAlunosDbContext> dbContext,
         [Frozen] Mock<IUsuarioContext> usuarioContext,
         [Frozen] Mock<INotificador> notificador,
+        [Frozen] Mock<IMediator> mediator,
         Aluno aluno, Curso curso, List<Matricula> matriculas,
         AlunoService service,
         MatriculaViewModel viewModel,
@@ -40,6 +43,7 @@ public class AlunoServiceTests
         notificador.Verify(n => n.AdicionarErro(It.IsAny<string>()), Times.Never);
         dbContext.Verify(c => c.SaveChangesAsync(cancellationToken), Times.Once);
         matriculasDbSet.Verify(m => m.AddAsync(It.IsAny<Matricula>(), cancellationToken), Times.Once);
+        mediator.Verify(m => m.Publish(It.IsAny<MatriculaRealizadaEvento>(), cancellationToken), Times.Once);
     }
 
     [Theory, AutoDomainData]
@@ -47,6 +51,7 @@ public class AlunoServiceTests
         [Frozen] Mock<IAlunosDbContext> dbContext,
         [Frozen] Mock<IUsuarioContext> usuarioContext,
         [Frozen] Mock<INotificador> notificador,
+        [Frozen] Mock<IMediator> mediator,
         Aluno aluno, Curso curso, List<Curso> cursos,
         AlunoService service,
         MatriculaViewModel viewModel,
@@ -65,6 +70,7 @@ public class AlunoServiceTests
         //assert
         notificador.Verify(n => n.AdicionarErro(It.Is<string>(s => s.Contains(viewModel.CursoId.ToString()))), Times.Once);
         dbContext.Verify(c => c.SaveChangesAsync(cancellationToken), Times.Never);
+        mediator.Verify(m => m.Publish(It.IsAny<MatriculaRealizadaEvento>(), cancellationToken), Times.Never);
     }
 
     [Theory, AutoDomainData]
@@ -72,6 +78,7 @@ public class AlunoServiceTests
        [Frozen] Mock<IAlunosDbContext> dbContext,
        [Frozen] Mock<IUsuarioContext> usuarioContext,
        [Frozen] Mock<INotificador> notificador,
+       [Frozen] Mock<IMediator> mediator,
        Aluno aluno, Curso curso, List<Aluno> alunos,
        AlunoService service,
        MatriculaViewModel viewModel,
@@ -89,5 +96,6 @@ public class AlunoServiceTests
         //assert
         notificador.Verify(n => n.AdicionarErro(It.Is<string>(s => s.Contains(aluno.Id.ToString()))), Times.Once);
         dbContext.Verify(c => c.SaveChangesAsync(cancellationToken), Times.Never);
+        mediator.Verify(m => m.Publish(It.IsAny<MatriculaRealizadaEvento>(), cancellationToken), Times.Never);
     }
 }
