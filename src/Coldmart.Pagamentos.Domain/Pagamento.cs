@@ -1,4 +1,4 @@
-﻿using Coldmart.Core;
+﻿using Coldmart.Core.Domain;
 
 namespace Coldmart.Pagamentos.Domain;
 

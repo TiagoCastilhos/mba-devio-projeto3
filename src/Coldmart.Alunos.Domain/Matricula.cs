@@ -1,5 +1,5 @@
 ﻿using Coldmart.Alunos.Domain.Enumerations;
-using Coldmart.Core;
+using Coldmart.Core.Domain;
 
 namespace Coldmart.Alunos.Domain;
 

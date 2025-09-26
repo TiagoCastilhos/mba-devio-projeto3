@@ -1,4 +1,4 @@
-﻿namespace Coldmart.Core;
+﻿namespace Coldmart.Core.Notificacao;
 
 public sealed class Notificador : INotificador
 {
@@ -11,5 +11,5 @@ public sealed class Notificador : INotificador
 
     public IReadOnlyList<string> ObterErros() => _erros.AsReadOnly();
 
-    public bool TemErro() => _erros.Any();
+    public bool TemErro() => _erros.Count != 0;
 }

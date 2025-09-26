@@ -1,4 +1,4 @@
-﻿namespace Coldmart.Core;
+﻿namespace Coldmart.Core.Notificacao;
 
 public interface INotificador
 {

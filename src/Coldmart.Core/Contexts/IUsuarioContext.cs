@@ -1,4 +1,4 @@
-﻿namespace Coldmart.Core;
+﻿namespace Coldmart.Core.Contexts;
 
 public interface IUsuarioContext
 {
