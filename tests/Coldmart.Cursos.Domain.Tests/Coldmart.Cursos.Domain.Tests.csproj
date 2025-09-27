@@ -21,6 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Coldmart.Cursos.Domain\Coldmart.Cursos.Domain.csproj" />
+    <ProjectReference Include="..\Coldmart.Core.Tests\Coldmart.Core.Tests.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 
