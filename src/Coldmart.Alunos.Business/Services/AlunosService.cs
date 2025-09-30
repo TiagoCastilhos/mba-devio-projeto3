@@ -7,13 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coldmart.Alunos.Business.Services;
 
-public class AlunoService
+public class AlunosService
 {
     private readonly IAlunosDbContext _dbContext;
     private readonly IUsuarioContext _usuarioContext;
     private readonly INotificador _notificador;
 
-    public AlunoService(IAlunosDbContext dbContext, IUsuarioContext usuarioContext, INotificador notificador)
+    public AlunosService(IAlunosDbContext dbContext, IUsuarioContext usuarioContext, INotificador notificador)
     {
         _dbContext = dbContext;
         _usuarioContext = usuarioContext;

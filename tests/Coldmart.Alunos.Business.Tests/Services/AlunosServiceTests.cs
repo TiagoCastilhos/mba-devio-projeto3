@@ -11,7 +11,7 @@ using Moq;
 
 namespace Coldmart.Alunos.Business.Tests.Services;
 
-public class AlunoServiceTests
+public class AlunosServiceTests
 {
     [Theory, AutoDomainData]
     internal async Task MatricularAoCursoAsync_CursoEAlunoFornecidos_DeveAdicionar(
@@ -19,7 +19,7 @@ public class AlunoServiceTests
         [Frozen] Mock<IUsuarioContext> usuarioContext,
         [Frozen] Mock<INotificador> notificador,
         Aluno aluno, Curso curso, List<Matricula> matriculas,
-        AlunoService service,
+        AlunosService service,
         MatriculaViewModel viewModel,
         CancellationToken cancellationToken)
     {
@@ -48,7 +48,7 @@ public class AlunoServiceTests
         [Frozen] Mock<IUsuarioContext> usuarioContext,
         [Frozen] Mock<INotificador> notificador,
         Aluno aluno, Curso curso, List<Curso> cursos,
-        AlunoService service,
+        AlunosService service,
         MatriculaViewModel viewModel,
         CancellationToken cancellationToken)
     {
@@ -73,7 +73,7 @@ public class AlunoServiceTests
        [Frozen] Mock<IUsuarioContext> usuarioContext,
        [Frozen] Mock<INotificador> notificador,
        Aluno aluno, Curso curso, List<Aluno> alunos,
-       AlunoService service,
+       AlunosService service,
        MatriculaViewModel viewModel,
        CancellationToken cancellationToken)
     {
