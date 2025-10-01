@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Coldmart.Core.Data\Coldmart.Core.Data.csproj" />
     <ProjectReference Include="..\Coldmart.Pagamentos.Domain\Coldmart.Pagamentos.Domain.csproj" />
   </ItemGroup>
 
