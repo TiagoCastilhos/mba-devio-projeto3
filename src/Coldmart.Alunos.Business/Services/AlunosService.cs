@@ -16,7 +16,7 @@ public class AlunosService
     private readonly INotificador _notificador;
     private readonly IMediator _mediator;
 
-    public AlunosService(IAlunosDbContext dbContext, IUsuarioContext usuarioContext, INotificador notificador)
+    public AlunosService(IAlunosDbContext dbContext, IUsuarioContext usuarioContext, INotificador notificador, IMediator mediator)
     {
         _dbContext = dbContext;
         _usuarioContext = usuarioContext;
