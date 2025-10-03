@@ -4,8 +4,23 @@ namespace Coldmart.Pagamentos.Domain;
 
 public class DadosCartao : Entity
 {
-    public required string NumeroCartao { get; set; }
-    public required string NomeTitular { get; set; }
-    public required DateTime DataValidade { get; set; }
-    public required string CodigoSeguranca { get; set; }
+    public string NumeroCartao { get; protected set; }
+    public string NomeTitular { get; protected set; }
+    public DateTimeOffset DataValidade { get; protected set; }
+    public string CodigoSeguranca { get; protected set; }
+
+    protected DadosCartao() { }
+
+    public DadosCartao(string numeroCartao, string nomeTitular, DateTimeOffset dataValidade, string codigoSeguranca)
+    {
+        ArgumentException.ThrowIfNullOrEmpty(numeroCartao, nameof(numeroCartao));
+        ArgumentException.ThrowIfNullOrEmpty(nomeTitular, nameof(nomeTitular));
+        ArgumentException.ThrowIfNullOrEmpty(codigoSeguranca, nameof(codigoSeguranca));
+        ArgumentOutOfRangeException.ThrowIfLessThan(dataValidade, DateTimeOffset.UtcNow);
+
+        NumeroCartao = numeroCartao;
+        NomeTitular = nomeTitular;
+        DataValidade = dataValidade;
+        CodigoSeguranca = codigoSeguranca;
+    }
 }
