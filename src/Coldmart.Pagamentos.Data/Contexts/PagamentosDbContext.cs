@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coldmart.Pagamentos.Data.Contexts;
 
-public class PagamentosDbContext : IdentityDbContext
+public class PagamentosDbContext : IdentityDbContext, IPagamentosDbContext
 {
     public DbSet<Pagamento> Pagamentos { get; set; }
     public DbSet<DadosCartao> DadosCartoes { get; set; }
