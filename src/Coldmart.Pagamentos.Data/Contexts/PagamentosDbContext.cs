@@ -8,6 +8,7 @@ public class PagamentosDbContext : IdentityDbContext, IPagamentosDbContext
 {
     public DbSet<Pagamento> Pagamentos { get; set; }
     public DbSet<DadosCartao> DadosCartoes { get; set; }
+    public DbSet<Matricula> Matriculas { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

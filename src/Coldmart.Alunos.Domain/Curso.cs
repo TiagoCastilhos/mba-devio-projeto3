@@ -2,18 +2,9 @@
 
 public class Curso
 {
-    public Guid Id { get; protected set; }
-    public string Nome { get; protected set; }
-    public bool Deletado { get; protected set; }
+    public Guid Id { get; set; }
+    public string Nome { get; set; }
+    public bool Deletado { get; set; }
 
-    public Curso(Guid id, string nome)
-    {
-        ArgumentException.ThrowIfNullOrEmpty(nome, nameof(nome));
-        ArgumentOutOfRangeException.ThrowIfEqual(id, Guid.Empty, nameof(id));
-
-        Id = id;
-        Nome = nome;
-    }
-
-    protected Curso() { }
+    public Curso() { }
 }

@@ -8,16 +8,22 @@ public class Pagamento : Entity, IAggregateRoot
     public DadosCartao Cartao { get; protected set; }
     public StatusPagamento Status { get; protected set; }
     public DateTimeOffset DataAtualizacao { get; protected set; }
+    public decimal Valor { get; protected set; }
+    public Guid MatriculaId { get; protected set; }
 
     protected Pagamento() { }
 
-    public Pagamento(DadosCartao cartao)
+    public Pagamento(DadosCartao cartao, decimal valor, Guid matriculaId)
     {
         ArgumentNullException.ThrowIfNull(cartao, nameof(cartao));
+        ArgumentOutOfRangeException.ThrowIfLessThan(valor, 0, nameof(valor));
+        ArgumentOutOfRangeException.ThrowIfEqual(matriculaId, Guid.Empty, nameof(matriculaId));
 
         Cartao = cartao;
         Status = StatusPagamento.Pendente;
         DataAtualizacao = DateTimeOffset.UtcNow;
+        Valor = valor;
+        MatriculaId = matriculaId;
     }
 
     public void Aprovar()

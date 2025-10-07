@@ -22,6 +22,11 @@ internal sealed class PagamentoConfiguration : EntityTypeConfiguration<Pagamento
             .ValueGeneratedOnAddOrUpdate()
             .HasDefaultValue(() => DateTimeOffset.UtcNow);
 
+        builder 
+            .Property(p => p.Valor)
+            .IsRequired()
+            .HasColumnType("decimal(18,2)");
+
         builder
             .HasOne(p => p.Cartao)
             .WithMany()

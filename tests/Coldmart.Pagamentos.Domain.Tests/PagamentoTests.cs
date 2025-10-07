@@ -5,10 +5,10 @@ namespace Coldmart.Pagamentos.Domain.Tests;
 public class PagamentoTests
 {
     [Theory, AutoDomainData]
-    public void CriarPagamento_FornecidosParametros_DeveCriar(DadosCartao dadosCartao)
+    public void CriarPagamento_FornecidosParametros_DeveCriar(DadosCartao dadosCartao, Guid matriculaId)
     {
         //act
-        var pagamento = new Pagamento(dadosCartao);
+        var pagamento = new Pagamento(dadosCartao, 2, matriculaId);
 
         //assert
         Assert.Equal(StatusPagamento.Pendente, pagamento.Status);
@@ -16,18 +16,32 @@ public class PagamentoTests
         Assert.NotEqual(DateTimeOffset.MinValue, pagamento.DataAtualizacao);
     }
 
-    [Fact]
-    public void CriarPagamento_DadosCartaoNulo_DeveLancarExcecao()
+    [Theory, AutoDomainData]
+    public void CriarPagamento_DadosCartaoNulo_DeveLancarExcecao(Guid matriculaId)
     {
         //act & assert
-        Assert.Throws<ArgumentNullException>(() => new Pagamento(null!));
+        Assert.Throws<ArgumentNullException>(() => new Pagamento(null!, 2, matriculaId));
     }
 
     [Theory, AutoDomainData]
-    public void AprovarPagamento_PagamentoPendente_DeveAprovar(DadosCartao dadosCartao)
+    public void CriarPagamento_ValorInvalido_DeveLancarExcecao(DadosCartao dadosCartao, Guid matriculaId)
+    {
+        //act & assert
+        Assert.Throws<ArgumentOutOfRangeException>(() => new Pagamento(dadosCartao, -5, matriculaId));
+    }
+
+    [Theory, AutoDomainData]
+    public void CriarPagamento_MatriculaIdInvalido_DeveLancarExcecao(DadosCartao dadosCartao)
+    {
+        //act & assert
+        Assert.Throws<ArgumentOutOfRangeException>(() => new Pagamento(dadosCartao, 2, Guid.Empty));
+    }
+
+    [Theory, AutoDomainData]
+    public void AprovarPagamento_PagamentoPendente_DeveAprovar(DadosCartao dadosCartao, Guid matriculaId)
     {
         //arrange
-        var pagamento = new Pagamento(dadosCartao);
+        var pagamento = new Pagamento(dadosCartao, 2, matriculaId);
 
         //act
         pagamento.Aprovar();
@@ -38,10 +52,10 @@ public class PagamentoTests
     }
 
     [Theory, AutoDomainData]
-    public void CancelarPagamento_PagamentoPendente_DeveCancelar(DadosCartao dadosCartao)
+    public void CancelarPagamento_PagamentoPendente_DeveCancelar(DadosCartao dadosCartao, Guid matriculaId)
     {
         //arrange
-        var pagamento = new Pagamento(dadosCartao);
+        var pagamento = new Pagamento(dadosCartao, 2, matriculaId);
 
         //act
         pagamento.Cancelar();
@@ -52,10 +66,10 @@ public class PagamentoTests
     }
 
     [Theory, AutoDomainData]
-    public void RecusarPagamento_PagamentoPendente_DeveRecusar(DadosCartao dadosCartao)
+    public void RecusarPagamento_PagamentoPendente_DeveRecusar(DadosCartao dadosCartao, Guid matriculaId)
     {
         //arrange
-        var pagamento = new Pagamento(dadosCartao);
+        var pagamento = new Pagamento(dadosCartao, 2, matriculaId);
 
         //act
         pagamento.Recusar();
@@ -66,10 +80,10 @@ public class PagamentoTests
     }
 
     [Theory, AutoDomainData]
-    public void AprovarPagamento_PagamentoNaoPendente_DeveLancarExcecao(DadosCartao dadosCartao)
+    public void AprovarPagamento_PagamentoNaoPendente_DeveLancarExcecao(DadosCartao dadosCartao, Guid matriculaId)
     {
         //arrange
-        var pagamento = new Pagamento(dadosCartao);
+        var pagamento = new Pagamento(dadosCartao, 2, matriculaId);
         pagamento.Recusar();
 
         //act & assert
