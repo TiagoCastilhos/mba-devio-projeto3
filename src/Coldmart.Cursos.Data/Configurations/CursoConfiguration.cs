@@ -26,5 +26,10 @@ internal sealed class CursoConfiguration : EntityTypeConfiguration<Curso>
             .HasMany(c => c.ConteudosProgramaticos)
             .WithOne()
             .HasForeignKey(c => c.CursoId);
+
+        builder
+            .HasMany(c => c.Aulas)
+            .WithOne(a => a.Curso)
+            .HasForeignKey(a => a.CursoId);
     }
 }

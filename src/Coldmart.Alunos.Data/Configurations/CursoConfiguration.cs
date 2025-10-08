@@ -10,6 +10,11 @@ internal sealed class CursoConfiguration : IEntityTypeConfiguration<Curso>
     {
         builder.ToTable("Curso");
 
+        builder
+            .HasMany(c => c.Aulas)
+            .WithOne(a => a.Curso)
+            .HasForeignKey(a => a.CursoId);
+
         builder.HasQueryFilter(c => !c.Deletado);
     }
 }

@@ -10,6 +10,8 @@ public sealed class AlunosDbContext : IdentityDbContext, IAlunosDbContext
     public DbSet<Matricula> Matriculas { get; set; }
     public DbSet<Certificado> Certificados { get; set; }
     public DbSet<Curso> Cursos { get; set; }
+    public DbSet<Aula> Aulas { get; set; }
+    public DbSet<HistoricoAluno> HistoricosAlunos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -48,4 +48,29 @@ public class AlunosService
         await _dbContext.SaveChangesAsync(cancellationToken);
         await _mediator.Publish(new MatriculaRealizadaEvento { AlunoId = aluno.Id, CursoId = curso.Id }, cancellationToken);
     }
+
+    public async Task RealizarAulaAsync(AulaViewModel viewModel, CancellationToken cancellationToken)
+    {
+        var alunoId = _usuarioContext.ObterIdUsuario();
+
+        var aluno = await _dbContext.Alunos.FirstOrDefaultAsync(a => a.Id == alunoId, cancellationToken);
+        if (aluno == null)
+        {
+            _notificador.AdicionarErro($"Aluno '{alunoId}' não encontrado.");
+            return;
+        }
+
+        var aula = await _dbContext.Aulas.FirstOrDefaultAsync(a => a.Id == viewModel.AulaId, cancellationToken);
+        if (aula == null)
+        {
+            _notificador.AdicionarErro($"Aula '{viewModel.AulaId}' não encontrada.");
+            return;
+        }
+
+        var historicoAluno = new HistoricoAluno(aluno.Id, aula.Id, aula.CursoId);
+        await _dbContext.HistoricosAlunos.AddAsync(historicoAluno, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
+
+        await _mediator.Publish(new AulaRealizadaEvento { AlunoId = aluno.Id, AulaId = aula.Id, CursoId = aula.CursoId }, cancellationToken);
+    }
 }

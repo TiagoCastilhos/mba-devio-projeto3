@@ -16,7 +16,7 @@ namespace Coldmart.Alunos.Business.Tests.Services;
 public class AlunosServiceTests
 {
     [Theory, AutoDomainData]
-    internal async Task MatricularAoCursoAsync_CursoEAlunoFornecidos_DeveAdicionar(
+    public async Task MatricularAoCursoAsync_CursoEAlunoFornecidos_DeveAdicionar(
         [Frozen] Mock<IAlunosDbContext> dbContext,
         [Frozen] Mock<IUsuarioContext> usuarioContext,
         [Frozen] Mock<INotificador> notificador,
@@ -47,7 +47,7 @@ public class AlunosServiceTests
     }
 
     [Theory, AutoDomainData]
-    internal async Task MatricularAoCursoAsync_CursoNaoEncontrado_DeveAdicionarErro(
+    public async Task MatricularAoCursoAsync_CursoNaoEncontrado_DeveAdicionarErro(
         [Frozen] Mock<IAlunosDbContext> dbContext,
         [Frozen] Mock<IUsuarioContext> usuarioContext,
         [Frozen] Mock<INotificador> notificador,
@@ -74,7 +74,7 @@ public class AlunosServiceTests
     }
 
     [Theory, AutoDomainData]
-    internal async Task MatricularAoCursoAsync_AlunoNaoEncontrado_DeveAdicionarErro(
+    public async Task MatricularAoCursoAsync_AlunoNaoEncontrado_DeveAdicionarErro(
        [Frozen] Mock<IAlunosDbContext> dbContext,
        [Frozen] Mock<IUsuarioContext> usuarioContext,
        [Frozen] Mock<INotificador> notificador,
@@ -97,5 +97,87 @@ public class AlunosServiceTests
         notificador.Verify(n => n.AdicionarErro(It.Is<string>(s => s.Contains(aluno.Id.ToString()))), Times.Once);
         dbContext.Verify(c => c.SaveChangesAsync(cancellationToken), Times.Never);
         mediator.Verify(m => m.Publish(It.IsAny<MatriculaRealizadaEvento>(), cancellationToken), Times.Never);
+    }
+
+    [Theory, AutoDomainData]
+    public async Task RealizarAulaAsync_AulaEAlunoFornecidos_DeveAdicionar(
+        [Frozen] Mock<IAlunosDbContext> dbContext,
+        [Frozen] Mock<IUsuarioContext> usuarioContext,
+        [Frozen] Mock<INotificador> notificador,
+        [Frozen] Mock<IMediator> mediator,
+        Aluno aluno, Aula aula, List<HistoricoAluno> historicosAlunos,
+        AlunosService service,
+        AulaViewModel viewModel,
+        CancellationToken cancellationToken)
+    {
+        //arrange
+        usuarioContext.Setup(uc => uc.ObterIdUsuario()).Returns(aluno.Id);
+        viewModel.AulaId = aula.Id;
+        dbContext.Setup(db => db.Alunos).Returns(DbSetHelper.CreateMockedDbSet([aluno]).Object);
+        dbContext.Setup(db => db.Aulas).Returns(DbSetHelper.CreateMockedDbSet([aula]).Object);
+
+        var historicosAlunosDbSet = DbSetHelper.CreateMockedDbSet(historicosAlunos);
+        dbContext.Setup(db => db.HistoricosAlunos).Returns(historicosAlunosDbSet.Object);
+
+        //act
+        await service.RealizarAulaAsync(viewModel, cancellationToken);
+
+        //assert
+        notificador.Verify(n => n.AdicionarErro(It.IsAny<string>()), Times.Never);
+        dbContext.Verify(c => c.SaveChangesAsync(cancellationToken), Times.Once);
+        historicosAlunosDbSet.Verify(m => m.AddAsync(It.IsAny<HistoricoAluno>(), cancellationToken), Times.Once);
+        mediator.Verify(m => m.Publish(It.IsAny<AulaRealizadaEvento>(), cancellationToken), Times.Once);
+    }
+
+    [Theory, AutoDomainData]
+    public async Task RealizarAulaAsync_AulaNaoEncontrada_DeveAdicionarErro(
+       [Frozen] Mock<IAlunosDbContext> dbContext,
+       [Frozen] Mock<IUsuarioContext> usuarioContext,
+       [Frozen] Mock<INotificador> notificador,
+       [Frozen] Mock<IMediator> mediator,
+       Aluno aluno, Aula aula, List<Aula> aulas,
+       AlunosService service,
+       AulaViewModel viewModel,
+       CancellationToken cancellationToken)
+    {
+        //arrange
+        usuarioContext.Setup(uc => uc.ObterIdUsuario()).Returns(aluno.Id);
+        viewModel.AulaId = aula.Id;
+        dbContext.Setup(db => db.Alunos).Returns(DbSetHelper.CreateMockedDbSet([aluno]).Object);
+        dbContext.Setup(db => db.Aulas).Returns(DbSetHelper.CreateMockedDbSet(aulas).Object);
+
+        //act
+        await service.RealizarAulaAsync(viewModel, cancellationToken);
+
+        //assert
+        notificador.Verify(n => n.AdicionarErro(It.Is<string>(s => s.Contains(viewModel.AulaId.ToString()))), Times.Once);
+        dbContext.Verify(c => c.SaveChangesAsync(cancellationToken), Times.Never);
+        mediator.Verify(m => m.Publish(It.IsAny<AulaRealizadaEvento>(), cancellationToken), Times.Never);
+    }
+
+    [Theory, AutoDomainData]
+    public async Task RealizarAulaAsync_AlunoNaoEncontrado_DeveAdicionarErro(
+       [Frozen] Mock<IAlunosDbContext> dbContext,
+       [Frozen] Mock<IUsuarioContext> usuarioContext,
+       [Frozen] Mock<INotificador> notificador,
+       [Frozen] Mock<IMediator> mediator,
+       Aluno aluno, Aula aula, List<Aluno> alunos,
+       AlunosService service,
+       AulaViewModel viewModel,
+       CancellationToken cancellationToken)
+    {
+        //arrange
+        usuarioContext.Setup(uc => uc.ObterIdUsuario()).Returns(aluno.Id);
+        viewModel.AulaId = aula.Id;
+        dbContext.Setup(db => db.Aulas).Returns(DbSetHelper.CreateMockedDbSet([aula]).Object);
+        dbContext.Setup(db => db.Alunos).Returns(DbSetHelper.CreateMockedDbSet(alunos).Object);
+
+        //act
+        await service.RealizarAulaAsync(viewModel, cancellationToken);
+
+        //assert
+        notificador.Verify(n => n.AdicionarErro(It.Is<string>(s => s.Contains(aluno.Id.ToString()))), Times.Once);
+        dbContext.Verify(c => c.SaveChangesAsync(cancellationToken), Times.Never);
+        mediator.Verify(m => m.Publish(It.IsAny<AulaRealizadaEvento>(), cancellationToken), Times.Never);
     }
 }

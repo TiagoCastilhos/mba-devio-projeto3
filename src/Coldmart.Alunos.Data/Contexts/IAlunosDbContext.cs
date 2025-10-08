@@ -9,5 +9,7 @@ public interface IAlunosDbContext
     DbSet<Matricula> Matriculas { get; }
     DbSet<Certificado> Certificados { get; }
     DbSet<Curso> Cursos { get; }
+    DbSet<Aula> Aulas { get; }
+    DbSet<HistoricoAluno> HistoricosAlunos { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
