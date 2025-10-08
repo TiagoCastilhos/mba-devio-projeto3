@@ -26,4 +26,22 @@ public class Matricula : Entity
     }
 
     protected Matricula() { }
+
+    public void Iniciar()
+    {
+        Status = StatusMatricula.Iniciado;
+        DataAtualizacao = DateTimeOffset.UtcNow;
+    }
+
+    public void Concluir()
+    {
+        Status = StatusMatricula.Concluido;
+        DataAtualizacao = DateTimeOffset.UtcNow;
+    }
+
+    public void Cancelar()
+    {
+        Status = StatusMatricula.Cancelado;
+        DataAtualizacao = DateTimeOffset.UtcNow;
+    }
 }

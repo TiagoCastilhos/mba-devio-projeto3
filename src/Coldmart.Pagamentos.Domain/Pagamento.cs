@@ -42,14 +42,6 @@ public class Pagamento : Entity, IAggregateRoot
         DataAtualizacao = DateTimeOffset.UtcNow;
     }
 
-    public void Recusar()
-    {
-        ValidarPagamentoPendente();
-
-        Status = StatusPagamento.Recusado;
-        DataAtualizacao = DateTimeOffset.UtcNow;
-    }
-
     private void ValidarPagamentoPendente()
     {
         if (Status != StatusPagamento.Pendente)

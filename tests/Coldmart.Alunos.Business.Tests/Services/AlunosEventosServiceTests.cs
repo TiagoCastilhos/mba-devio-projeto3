@@ -1,7 +1,9 @@
-﻿using AutoFixture.Xunit2;
+﻿using AutoFixture;
+using AutoFixture.Xunit2;
 using Coldmart.Alunos.Business.Services;
 using Coldmart.Alunos.Data.Contexts;
 using Coldmart.Alunos.Domain;
+using Coldmart.Alunos.Domain.Enumerations;
 using Coldmart.Core.Eventos;
 using Coldmart.Core.Tests.Attributes;
 using Coldmart.Core.Tests.Extensions;
@@ -16,10 +18,11 @@ public class AlunosEventosServiceTests
         [Frozen] Mock<IAlunosDbContext> dbContext,
         AlunosEventosService service,
         AulaRealizadaEvento evento,
-        Aluno aluno,
+        Aluno aluno, Matricula matricula,
         Curso curso,
         List<Aula> aulasCurso,
         List<HistoricoAluno> historicosAlunos,
+        IFixture fixture,
         CancellationToken cancellationToken)
     {
         //arrange
@@ -53,12 +56,19 @@ public class AlunosEventosServiceTests
         var certificadosDbSet = DbSetHelper.CreateMockedDbSet(new List<Certificado>());
         dbContext.Setup(db => db.Certificados).Returns(certificadosDbSet.Object);
 
+        matricula.SetProperty("AlunoId", aluno.Id);
+        matricula.SetProperty("CursoId", curso.Id);
+
+        dbContext.Setup(db => db.Matriculas)
+            .Returns(DbSetHelper.CreateMockedDbSet([matricula]).Object);
+
         //act
         await service.Handle(evento, cancellationToken);
 
         //assert
         certificadosDbSet.Verify(c => c.AddAsync(It.IsAny<Certificado>(), cancellationToken), Times.Once);
         dbContext.Verify(c => c.SaveChangesAsync(cancellationToken), Times.Once);
+        Assert.Equal(StatusMatricula.Concluido, matricula.Status);
     }
 
     [Theory, AutoDomainData]
@@ -108,5 +118,47 @@ public class AlunosEventosServiceTests
         //assert
         certificadosDbSet.Verify(c => c.AddAsync(It.IsAny<Certificado>(), cancellationToken), Times.Never);
         dbContext.Verify(c => c.SaveChangesAsync(cancellationToken), Times.Never);
+    }
+
+    [Theory, AutoDomainData]
+    public async Task Handle_PagamentoRealizadoEvento_DeveIniciarMatricula(
+       [Frozen] Mock<IAlunosDbContext> dbContext,
+       AlunosEventosService service,
+       PagamentoRealizadoEvento evento,
+       Matricula matricula,
+       CancellationToken cancellationToken)
+    {
+        //arrange
+        evento.MatriculaId = matricula.Id;
+        dbContext.Setup(db => db.Matriculas)
+            .Returns(DbSetHelper.CreateMockedDbSet([matricula]).Object);
+
+        //act
+        await service.Handle(evento, cancellationToken);
+
+        //assert
+        dbContext.Verify(c => c.SaveChangesAsync(cancellationToken), Times.Once);
+        Assert.Equal(StatusMatricula.Iniciado, matricula.Status);
+    }
+
+    [Theory, AutoDomainData]
+    public async Task Handle_PagamentoCanceladoEvento_DeveCancelarMatricula(
+       [Frozen] Mock<IAlunosDbContext> dbContext,
+       AlunosEventosService service,
+       PagamentoCanceladoEvento evento,
+       Matricula matricula,
+       CancellationToken cancellationToken)
+    {
+        //arrange
+        evento.MatriculaId = matricula.Id;
+        dbContext.Setup(db => db.Matriculas)
+            .Returns(DbSetHelper.CreateMockedDbSet([matricula]).Object);
+
+        //act
+        await service.Handle(evento, cancellationToken);
+
+        //assert
+        dbContext.Verify(c => c.SaveChangesAsync(cancellationToken), Times.Once);
+        Assert.Equal(StatusMatricula.Cancelado, matricula.Status);
     }
 }

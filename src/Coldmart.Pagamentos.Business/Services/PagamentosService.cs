@@ -1,6 +1,8 @@
-﻿using Coldmart.Core.Notificacao;
+﻿using Coldmart.Core.Eventos;
+using Coldmart.Core.Notificacao;
 using Coldmart.Pagamentos.Business.ViewModels;
 using Coldmart.Pagamentos.Data.Contexts;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coldmart.Pagamentos.Business.Services;
@@ -9,11 +11,13 @@ public class PagamentosService
 {
     private readonly IPagamentosDbContext _dbContext;
     private readonly INotificador _notificador;
+    private readonly IMediator _mediator;
 
-    public PagamentosService(IPagamentosDbContext dbContext, INotificador notificador)
+    public PagamentosService(IPagamentosDbContext dbContext, INotificador notificador, IMediator mediator)
     {
         _dbContext = dbContext;
         _notificador = notificador;
+        _mediator = mediator;
     }
 
     public async Task CriarPagamentoAsync(PagamentoViewModel viewModel, CancellationToken cancellationToken)
@@ -51,6 +55,8 @@ public class PagamentosService
 
         pagamento.Aprovar();
         await _dbContext.SaveChangesAsync(cancellationToken);
+
+        await _mediator.Publish(new PagamentoRealizadoEvento { MatriculaId = pagamento.MatriculaId }, cancellationToken);
     }
 
     public async Task CancelarPagamentoAsync(AlterarStatusPagamentoViewModel viewModel, CancellationToken cancellationToken)
@@ -64,18 +70,7 @@ public class PagamentosService
 
         pagamento.Cancelar();
         await _dbContext.SaveChangesAsync(cancellationToken);
-    }
 
-    public async Task RecusarPagamentoAsync(AlterarStatusPagamentoViewModel viewModel, CancellationToken cancellationToken)
-    {
-        var pagamento = await _dbContext.Pagamentos.FirstOrDefaultAsync(p => p.Id == viewModel.PagamentoId, cancellationToken);
-        if (pagamento == null)
-        {
-            _notificador.AdicionarErro($"Pagamento '{viewModel.PagamentoId}' não encontrado.");
-            return;
-        }
-
-        pagamento.Recusar();
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await _mediator.Publish(new PagamentoCanceladoEvento { MatriculaId = pagamento.MatriculaId }, cancellationToken);
     }
 }

@@ -6,9 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coldmart.Alunos.Business.Services;
 
-public class AlunosEventosService : INotificationHandler<AulaRealizadaEvento>
+public class AlunosEventosService : 
+    INotificationHandler<AulaRealizadaEvento>,
+    INotificationHandler<PagamentoCanceladoEvento>,
+    INotificationHandler<PagamentoRealizadoEvento>
 {
     private readonly IAlunosDbContext _alunosDbContext;
+    private readonly IMediator _mediator;
 
     public AlunosEventosService(IAlunosDbContext alunosDbContext)
     {
@@ -33,6 +37,29 @@ public class AlunosEventosService : INotificationHandler<AulaRealizadaEvento>
 
         var certificado = new Certificado(curso, aluno);
         await _alunosDbContext.Certificados.AddAsync(certificado, cancellationToken);
+
+        var matricula = await _alunosDbContext.Matriculas
+            .FirstAsync(m => m.AlunoId == aluno.Id && m.CursoId == curso.Id, cancellationToken);
+        matricula.Concluir();
+
+        await _alunosDbContext.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task Handle(PagamentoRealizadoEvento notification, CancellationToken cancellationToken)
+    {
+        var matricula = await _alunosDbContext.Matriculas
+            .FirstAsync(m => m.Id == notification.MatriculaId, cancellationToken);
+
+        matricula.Iniciar();
+        await _alunosDbContext.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task Handle(PagamentoCanceladoEvento notification, CancellationToken cancellationToken)
+    {
+        var matricula = await _alunosDbContext.Matriculas
+            .FirstAsync(m => m.Id == notification.MatriculaId, cancellationToken);
+
+        matricula.Cancelar();
         await _alunosDbContext.SaveChangesAsync(cancellationToken);
     }
 }

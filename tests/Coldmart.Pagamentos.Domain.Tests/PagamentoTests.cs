@@ -64,29 +64,4 @@ public class PagamentoTests
         Assert.Equal(StatusPagamento.Cancelado, pagamento.Status);
         Assert.NotEqual(DateTimeOffset.MinValue, pagamento.DataAtualizacao);
     }
-
-    [Theory, AutoDomainData]
-    public void RecusarPagamento_PagamentoPendente_DeveRecusar(DadosCartao dadosCartao, Guid matriculaId)
-    {
-        //arrange
-        var pagamento = new Pagamento(dadosCartao, 2, matriculaId);
-
-        //act
-        pagamento.Recusar();
-
-        //assert
-        Assert.Equal(StatusPagamento.Recusado, pagamento.Status);
-        Assert.NotEqual(DateTimeOffset.MinValue, pagamento.DataAtualizacao);
-    }
-
-    [Theory, AutoDomainData]
-    public void AprovarPagamento_PagamentoNaoPendente_DeveLancarExcecao(DadosCartao dadosCartao, Guid matriculaId)
-    {
-        //arrange
-        var pagamento = new Pagamento(dadosCartao, 2, matriculaId);
-        pagamento.Recusar();
-
-        //act & assert
-        Assert.Throws<InvalidOperationException>(pagamento.Aprovar);
-    }
 }
