@@ -22,7 +22,6 @@ public class AlunosEventosServiceTests
         Curso curso,
         List<Aula> aulasCurso,
         List<HistoricoAluno> historicosAlunos,
-        IFixture fixture,
         CancellationToken cancellationToken)
     {
         //arrange

@@ -1,4 +1,4 @@
-﻿using Coldmart.Alunos.Business.ViewModels;
+﻿using Coldmart.Alunos.Business.Requests;
 using Coldmart.Alunos.Data.Contexts;
 using Coldmart.Alunos.Domain;
 using Coldmart.Core.Contexts;
@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coldmart.Alunos.Business.Services;
 
-public class AlunosService
+public class AlunosService : IRequestHandler<MatricularAoCursoRequest>, IRequestHandler<RealizarAulaRequest>
 {
     private readonly IAlunosDbContext _dbContext;
     private readonly IUsuarioContext _usuarioContext;
@@ -24,7 +24,7 @@ public class AlunosService
         _mediator = mediator;
     }
 
-    public async Task MatricularAoCursoAsync(MatriculaViewModel viewModel, CancellationToken cancellationToken)
+    public async Task Handle(MatricularAoCursoRequest request, CancellationToken cancellationToken)
     {
         var alunoId = _usuarioContext.ObterIdUsuario();
 
@@ -35,10 +35,10 @@ public class AlunosService
             return;
         }
 
-        var curso = await _dbContext.Cursos.FirstOrDefaultAsync(c => c.Id == viewModel.CursoId, cancellationToken);
+        var curso = await _dbContext.Cursos.FirstOrDefaultAsync(c => c.Id == request.Matricula.CursoId, cancellationToken);
         if (curso == null)
         {
-            _notificador.AdicionarErro($"Curso '{viewModel.CursoId}' não encontrado.");
+            _notificador.AdicionarErro($"Curso '{request.Matricula.CursoId}' não encontrado.");
             return;
         }
 
@@ -49,7 +49,7 @@ public class AlunosService
         await _mediator.Publish(new MatriculaRealizadaEvento { AlunoId = aluno.Id, CursoId = curso.Id }, cancellationToken);
     }
 
-    public async Task RealizarAulaAsync(AulaViewModel viewModel, CancellationToken cancellationToken)
+    public async Task Handle(RealizarAulaRequest request, CancellationToken cancellationToken)
     {
         var alunoId = _usuarioContext.ObterIdUsuario();
 
@@ -60,10 +60,10 @@ public class AlunosService
             return;
         }
 
-        var aula = await _dbContext.Aulas.FirstOrDefaultAsync(a => a.Id == viewModel.AulaId, cancellationToken);
+        var aula = await _dbContext.Aulas.FirstOrDefaultAsync(a => a.Id == request.Aula.AulaId, cancellationToken);
         if (aula == null)
         {
-            _notificador.AdicionarErro($"Aula '{viewModel.AulaId}' não encontrada.");
+            _notificador.AdicionarErro($"Aula '{request.Aula.AulaId}' não encontrada.");
             return;
         }
 

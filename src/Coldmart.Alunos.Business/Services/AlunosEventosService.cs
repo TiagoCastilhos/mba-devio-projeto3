@@ -12,7 +12,6 @@ public class AlunosEventosService :
     INotificationHandler<PagamentoRealizadoEvento>
 {
     private readonly IAlunosDbContext _alunosDbContext;
-    private readonly IMediator _mediator;
 
     public AlunosEventosService(IAlunosDbContext alunosDbContext)
     {

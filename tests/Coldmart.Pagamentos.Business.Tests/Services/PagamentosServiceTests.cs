@@ -3,6 +3,7 @@ using Coldmart.Core.Eventos;
 using Coldmart.Core.Notificacao;
 using Coldmart.Core.Tests.Attributes;
 using Coldmart.Core.Tests.Extensions;
+using Coldmart.Pagamentos.Business.Requests;
 using Coldmart.Pagamentos.Business.Services;
 using Coldmart.Pagamentos.Business.ViewModels;
 using Coldmart.Pagamentos.Data.Contexts;
@@ -15,40 +16,40 @@ namespace Coldmart.Pagamentos.Business.Tests.Services;
 public class PagamentosServiceTests
 {
     [Theory, AutoDomainData]
-    public async Task CriarPagamento_FornecidoDadosPagamento_DeveCriar(
+    public async Task HandleCriarPagamento_FornecidoDadosPagamento_DeveCriar(
         [Frozen] Mock<IPagamentosDbContext> dbContext,
         [Frozen] Mock<INotificador> notificador,
         Matricula matricula, List<Pagamento> pagamentos,
         PagamentosService pagamentosService, 
-        PagamentoViewModel pagamentoViewModel,
+        CriarPagamentoRequest request,
         CancellationToken cancellationToken)
     {
         //arrange
-        pagamentoViewModel.MatriculaId = matricula.Id;
+        request.Pagamento.MatriculaId = matricula.Id;
         dbContext.Setup(db => db.Matriculas).Returns(DbSetHelper.CreateMockedDbSet([matricula]).Object);
 
         var pagamentosDbSet = DbSetHelper.CreateMockedDbSet(pagamentos);
         dbContext.Setup(db => db.Pagamentos).Returns(pagamentosDbSet.Object);
 
         //act
-        await pagamentosService.CriarPagamentoAsync(pagamentoViewModel, cancellationToken);
+        await pagamentosService.Handle(request, cancellationToken);
 
         //assert
         dbContext.Verify(db => db.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
         pagamentosDbSet.Verify(m => m.AddAsync(It.Is<Pagamento>(
-            p => p.MatriculaId == pagamentoViewModel.MatriculaId && p.Valor == pagamentoViewModel.Valor), It.IsAny<CancellationToken>())
+            p => p.MatriculaId == request.Pagamento.MatriculaId && p.Valor == request.Pagamento.Valor), It.IsAny<CancellationToken>())
         , Times.Once);
         notificador.Verify(n => n.AdicionarErro(It.IsAny<string>()), Times.Never);
 
     }
 
     [Theory, AutoDomainData]
-    public async Task CriarPagamento_FornecidoDadosPagamento_MatriculaNaoExiste_DeveAdicionarErro(
+    public async Task HandleCriarPagamento_FornecidoDadosPagamento_MatriculaNaoExiste_DeveAdicionarErro(
         [Frozen] Mock<IPagamentosDbContext> dbContext,
         [Frozen] Mock<INotificador> notificador,
         List<Matricula> matriculas, List<Pagamento> pagamentos,
         PagamentosService pagamentosService,
-        PagamentoViewModel pagamentoViewModel,
+        CriarPagamentoRequest request,
         CancellationToken cancellationToken)
     {
         //arrange
@@ -58,30 +59,30 @@ public class PagamentosServiceTests
         dbContext.Setup(db => db.Pagamentos).Returns(pagamentosDbSet.Object);
 
         //act
-        await pagamentosService.CriarPagamentoAsync(pagamentoViewModel, cancellationToken);
+        await pagamentosService.Handle(request, cancellationToken);
 
         //assert
         dbContext.Verify(db => db.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
         pagamentosDbSet.Verify(m => m.AddAsync(It.IsAny<Pagamento>(), It.IsAny<CancellationToken>()), Times.Never);
-        notificador.Verify(n => n.AdicionarErro(It.Is<string>(s => s.Contains(pagamentoViewModel.MatriculaId.ToString()))), Times.Once);
+        notificador.Verify(n => n.AdicionarErro(It.Is<string>(s => s.Contains(request.Pagamento.MatriculaId.ToString()))), Times.Once);
     }
 
     [Theory, AutoDomainData]
-    public async Task AprovarPagamentoAsync_FornecidoPagamento_DeveAtualizar(
+    public async Task HandleAprovarPagamento_FornecidoPagamento_DeveAtualizar(
         [Frozen] Mock<IPagamentosDbContext> dbContext,
         [Frozen] Mock<INotificador> notificador,
         [Frozen] Mock<IMediator> mediator,
         Pagamento pagamento,
         PagamentosService pagamentosService,
-        AlterarStatusPagamentoViewModel viewModel,
+        AprovarPagamentoRequest request,
         CancellationToken cancellationToken)
     {
         //arrange
-        viewModel.PagamentoId = pagamento.Id;
+        request.Pagamento.PagamentoId = pagamento.Id;
         dbContext.Setup(db => db.Pagamentos).Returns(DbSetHelper.CreateMockedDbSet([pagamento]).Object);
 
         //act
-        await pagamentosService.AprovarPagamentoAsync(viewModel, cancellationToken);
+        await pagamentosService.Handle(request, cancellationToken);
 
         //assert
         dbContext.Verify(db => db.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
@@ -91,43 +92,43 @@ public class PagamentosServiceTests
     }
 
     [Theory, AutoDomainData]
-    public async Task AprovarPagamentoAsync_PagamentoNaoEncontrado_DeveAdicionarErro(
+    public async Task HandleAprovarPagamento_PagamentoNaoEncontrado_DeveAdicionarErro(
         [Frozen] Mock<IPagamentosDbContext> dbContext,
         [Frozen] Mock<INotificador> notificador,
         [Frozen] Mock<IMediator> mediator,
         Pagamento pagamento,
         PagamentosService pagamentosService,
-        AlterarStatusPagamentoViewModel viewModel,
+        AprovarPagamentoRequest request,
         CancellationToken cancellationToken)
     {
         //arrange
         dbContext.Setup(db => db.Pagamentos).Returns(DbSetHelper.CreateMockedDbSet([pagamento]).Object);
 
         //act
-        await pagamentosService.AprovarPagamentoAsync(viewModel, cancellationToken);
+        await pagamentosService.Handle(request, cancellationToken);
 
         //assert
         dbContext.Verify(db => db.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
-        notificador.Verify(n => n.AdicionarErro(It.Is<string>(s => s.Contains(viewModel.PagamentoId.ToString()))), Times.Once);
+        notificador.Verify(n => n.AdicionarErro(It.Is<string>(s => s.Contains(request.Pagamento.PagamentoId.ToString()))), Times.Once);
         mediator.Verify(m => m.Publish(It.IsAny<PagamentoRealizadoEvento>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 
     [Theory, AutoDomainData]
-    public async Task CancelarPagamentoAsync_FornecidoPagamento_DeveAtualizar(
+    public async Task HandleCancelarPagamento_FornecidoPagamento_DeveAtualizar(
         [Frozen] Mock<IPagamentosDbContext> dbContext,
         [Frozen] Mock<INotificador> notificador,
         [Frozen] Mock<IMediator> mediator,
         Pagamento pagamento,
         PagamentosService pagamentosService,
-        AlterarStatusPagamentoViewModel viewModel,
+        CancelarPagamentoRequest request,
         CancellationToken cancellationToken)
     {
         //arrange
-        viewModel.PagamentoId = pagamento.Id;
+        request.Pagamento.PagamentoId = pagamento.Id;
         dbContext.Setup(db => db.Pagamentos).Returns(DbSetHelper.CreateMockedDbSet([pagamento]).Object);
 
         //act
-        await pagamentosService.CancelarPagamentoAsync(viewModel, cancellationToken);
+        await pagamentosService.Handle(request, cancellationToken);
 
         //assert
         dbContext.Verify(db => db.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
@@ -137,24 +138,24 @@ public class PagamentosServiceTests
     }
 
     [Theory, AutoDomainData]
-    public async Task CancelarPagamentoAsync_PagamentoNaoEncontrado_DeveAdicionarErro(
+    public async Task HandleCancelarPagamento_PagamentoNaoEncontrado_DeveAdicionarErro(
         [Frozen] Mock<IPagamentosDbContext> dbContext,
         [Frozen] Mock<INotificador> notificador,
         [Frozen] Mock<IMediator> mediator,
         Pagamento pagamento,
         PagamentosService pagamentosService,
-        AlterarStatusPagamentoViewModel viewModel,
+        CancelarPagamentoRequest request,
         CancellationToken cancellationToken)
     {
         //arrange
         dbContext.Setup(db => db.Pagamentos).Returns(DbSetHelper.CreateMockedDbSet([pagamento]).Object);
 
         //act
-        await pagamentosService.CancelarPagamentoAsync(viewModel, cancellationToken);
+        await pagamentosService.Handle(request, cancellationToken);
 
         //assert
         dbContext.Verify(db => db.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Never);
-        notificador.Verify(n => n.AdicionarErro(It.Is<string>(s => s.Contains(viewModel.PagamentoId.ToString()))), Times.Once);
+        notificador.Verify(n => n.AdicionarErro(It.Is<string>(s => s.Contains(request.Pagamento.PagamentoId.ToString()))), Times.Once);
         mediator.Verify(m => m.Publish(It.IsAny<PagamentoCanceladoEvento>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 }

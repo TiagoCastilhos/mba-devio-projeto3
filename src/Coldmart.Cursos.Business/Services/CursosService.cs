@@ -1,12 +1,13 @@
 ﻿using Coldmart.Core.Notificacao;
-using Coldmart.Cursos.Business.ViewModels;
+using Coldmart.Cursos.Business.Requests;
 using Coldmart.Cursos.Data.Contexts;
 using Coldmart.Cursos.Domain;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coldmart.Cursos.Business.Services;
 
-public class CursosService
+public class CursosService : IRequestHandler<CriarCursoRequest>
 {
     private readonly ICursosDbContext _cursosDbContext;
     private readonly INotificador _notificador;
@@ -17,11 +18,11 @@ public class CursosService
         _notificador = notificador;
     }
 
-    public async Task CriarCursoAsync(CursoViewModel cursoViewModel, CancellationToken cancellationToken)
+    public async Task Handle(CriarCursoRequest request, CancellationToken cancellationToken)
     {
-        var curso = new Curso(cursoViewModel.Nome!);
+        var curso = new Curso(request.Curso.Nome!);
 
-        foreach (var conteudoProgramaticoViewModel in cursoViewModel.ConteudosProgramaticos!)
+        foreach (var conteudoProgramaticoViewModel in request.Curso.ConteudosProgramaticos!)
         {
             var conteudoProgramatico = new ConteudoProgramatico(curso, conteudoProgramaticoViewModel.Titulo!, conteudoProgramaticoViewModel.Descricao!);
             curso.AdicionarConteudoProgramatico(conteudoProgramatico);
@@ -33,17 +34,17 @@ public class CursosService
         await _cursosDbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task AdicionarAulaAsync(AulaViewModel aulaViewModel, CancellationToken cancellationToken)
+    public async Task Handle(AdicionarAulaRequest request, CancellationToken cancellationToken)
     {
-        var curso = await _cursosDbContext.Cursos.FirstOrDefaultAsync(c => c.Id == aulaViewModel.CursoId, cancellationToken);
+        var curso = await _cursosDbContext.Cursos.FirstOrDefaultAsync(c => c.Id == request.Aula.CursoId, cancellationToken);
         if (curso == null)
         {
-            _notificador.AdicionarErro($"Curso '{aulaViewModel.CursoId}' não encontrado.");
+            _notificador.AdicionarErro($"Curso '{request.Aula.CursoId}' não encontrado.");
             return;
         }
 
         //ToDo: Adicionar suporte aos materiais da aula
-        var aula = new Aula(curso, aulaViewModel.Titulo!, TimeSpan.FromSeconds(aulaViewModel.DuracaoSegundos));
+        var aula = new Aula(curso, request.Aula.Titulo!, TimeSpan.FromSeconds(request.Aula.DuracaoSegundos));
         await _cursosDbContext.Aulas.AddAsync(aula, cancellationToken);
 
         curso.AdicionarAula(aula);
