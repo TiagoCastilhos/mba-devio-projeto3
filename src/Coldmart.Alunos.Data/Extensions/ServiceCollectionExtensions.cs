@@ -8,6 +8,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddAlunosData(this IServiceCollection services)
     {
         services.AddDbContext<IAlunosDbContext, AlunosDbContext>();
+
         return services;
     }
 }

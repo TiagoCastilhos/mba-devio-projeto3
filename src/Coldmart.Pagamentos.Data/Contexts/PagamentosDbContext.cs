@@ -1,10 +1,9 @@
 ﻿using Coldmart.Pagamentos.Domain;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coldmart.Pagamentos.Data.Contexts;
 
-public class PagamentosDbContext : IdentityDbContext, IPagamentosDbContext
+public class PagamentosDbContext : DbContext, IPagamentosDbContext
 {
     public DbSet<Pagamento> Pagamentos { get; set; }
     public DbSet<DadosCartao> DadosCartoes { get; set; }

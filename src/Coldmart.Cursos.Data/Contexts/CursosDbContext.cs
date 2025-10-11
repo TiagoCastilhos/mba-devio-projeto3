@@ -1,10 +1,9 @@
 ﻿using Coldmart.Cursos.Domain;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coldmart.Cursos.Data.Contexts;
 
-public class CursosDbContext : IdentityDbContext, ICursosDbContext
+public class CursosDbContext : DbContext, ICursosDbContext
 {
     public DbSet<Curso> Cursos { get; set; }
     public DbSet<Aula> Aulas { get; set; }

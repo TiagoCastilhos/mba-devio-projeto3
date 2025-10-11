@@ -1,10 +1,9 @@
 ﻿using Coldmart.Alunos.Domain;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coldmart.Alunos.Data.Contexts;
 
-public sealed class AlunosDbContext : IdentityDbContext, IAlunosDbContext
+public sealed class AlunosDbContext : DbContext, IAlunosDbContext
 {
     public DbSet<Aluno> Alunos { get; set; }
     public DbSet<Matricula> Matriculas { get; set; }
