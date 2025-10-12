@@ -1,17 +1,23 @@
 ﻿using Coldmart.Core.Data.Contexts;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Coldmart.Core.Data.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddCoreData(this IServiceCollection services)
+    public static IServiceCollection AddCoreData(this IServiceCollection services, IConfiguration configuration, bool isDevelopment)
     {
         services
             .AddIdentityCore<IdentityUser>(ConfigureIdentityOptions)
             .AddEntityFrameworkStores<CoreDbContext>()
             .AddSignInManager();
+
+        services.AddDbContext<CoreDbContext>(options =>
+        {
+            options.ConfigureDbContextOptions(configuration, isDevelopment);
+        });
 
         return services;
     }

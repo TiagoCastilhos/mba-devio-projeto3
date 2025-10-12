@@ -2,7 +2,7 @@
 
 namespace Coldmart.Alunos.Business.ViewModels;
 
-public class AulaViewModel
+public class RealizarAulaViewModel
 {
     [Required]
     public Guid AulaId { get; set; }

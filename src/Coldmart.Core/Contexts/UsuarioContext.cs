@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace Coldmart.Core.Contexts;
 
@@ -11,9 +12,18 @@ public class UsuarioContext : IUsuarioContext
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public Guid ObterIdUsuario()
+    public Guid? ObterIdUsuario()
     {
-        // Implementation to retrieve the user ID from the current context
-        throw new NotImplementedException();
+        var user = _httpContextAccessor.HttpContext?.User;
+
+        if (user == null)
+            return null;
+
+        var idClaim = user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+        if (idClaim == null)
+            return null;
+
+        return Guid.Parse(idClaim);
     }
 }

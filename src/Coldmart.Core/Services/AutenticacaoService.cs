@@ -16,7 +16,11 @@ public class AutenticacaoService : IAutenticacaoService
     private readonly JwtOptions _jwtOptions;
     private readonly INotificador _notificador;
 
-    public AutenticacaoService(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, JwtOptions jwtOptions, INotificador notificador)
+    public AutenticacaoService(
+        UserManager<IdentityUser> userManager, 
+        SignInManager<IdentityUser> signInManager, 
+        JwtOptions jwtOptions, 
+        INotificador notificador)
     {
         _userManager = userManager;
         _signInManager = signInManager;
@@ -79,5 +83,5 @@ public class AutenticacaoService : IAutenticacaoService
     }
 
     private static long ToUnixEpochDate(DateTime date)
-    => (long)Math.Round((date.ToUniversalTime() - DateTime.UnixEpoch).TotalSeconds);
+        => (long)Math.Round((date.ToUniversalTime() - DateTime.UnixEpoch).TotalSeconds);
 }

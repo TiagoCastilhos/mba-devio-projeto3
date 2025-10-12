@@ -12,6 +12,11 @@ public sealed class AlunosDbContext : DbContext, IAlunosDbContext
     public DbSet<Aula> Aulas { get; set; }
     public DbSet<HistoricoAluno> HistoricosAlunos { get; set; }
 
+    public AlunosDbContext(DbContextOptions<AlunosDbContext> options)
+        : base(options)
+    {
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AlunosDbContext).Assembly);

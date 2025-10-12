@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldmart.Pagamentos.Busines
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldmart.Pagamentos.Business.Tests", "tests\Coldmart.Pagamentos.Business.Tests\Coldmart.Pagamentos.Business.Tests.csproj", "{36279D30-E39F-41D7-A3AD-BCABA3807E57}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coldmart.API", "src\Coldmart.API\Coldmart.API.csproj", "{A38369D8-43BC-49E9-BDDC-E41F9CCEFE53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,10 @@ Global
 		{36279D30-E39F-41D7-A3AD-BCABA3807E57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36279D30-E39F-41D7-A3AD-BCABA3807E57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36279D30-E39F-41D7-A3AD-BCABA3807E57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A38369D8-43BC-49E9-BDDC-E41F9CCEFE53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A38369D8-43BC-49E9-BDDC-E41F9CCEFE53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A38369D8-43BC-49E9-BDDC-E41F9CCEFE53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A38369D8-43BC-49E9-BDDC-E41F9CCEFE53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,7 +5,7 @@ namespace Coldmart.Core.Data.Contexts;
 
 public class CoreDbContext : IdentityDbContext
 {
-    public CoreDbContext(DbContextOptions options)
+    public CoreDbContext(DbContextOptions<CoreDbContext> options)
         : base(options)
     {
     }

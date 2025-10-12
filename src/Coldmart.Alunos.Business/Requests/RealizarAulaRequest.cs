@@ -5,5 +5,5 @@ namespace Coldmart.Alunos.Business.Requests;
 
 public class RealizarAulaRequest : IRequest
 {
-    public required AulaViewModel Aula { get; init; }
+    public required RealizarAulaViewModel Aula { get; init; }
 }

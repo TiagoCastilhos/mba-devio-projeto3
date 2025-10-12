@@ -6,6 +6,15 @@ Autor(es)
 
 Tiago Henrique de Castilhos
 
+1.1 Notas da primeira entrega
+A API não foi testada. Finalizei 'apenas' a modelagem e os testes unitários, mas não gerei migrations e não fiz o seed ainda da database pois não tive tempo.
+Existem alguns ToDos no código, então ainda preciso:
+- Finalizar ToDos (incluem ajustes nas rotas, para deixar no padrão REST)
+- Obrigar autenticação nas rotas
+- Gerar migrations
+- Gerar scripts de seed
+- Ajustar possíveis erros
+
 2. Proposta do Projeto
 
 O projeto consiste em:
@@ -101,7 +110,7 @@ Migrações do Banco de Dados: As migrações são gerenciadas pelo Entity Frame
 8. Documentação da API
 A documentação da API está disponível através do Swagger. Após iniciar a API, acesse a documentação em:
 
-http://localhost:5047/swagger
+https://localhost:033/swagger
 
 9. Avaliação
 

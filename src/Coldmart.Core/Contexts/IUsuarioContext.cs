@@ -2,5 +2,5 @@
 
 public interface IUsuarioContext
 {
-    Guid ObterIdUsuario();
+    Guid? ObterIdUsuario();
 }

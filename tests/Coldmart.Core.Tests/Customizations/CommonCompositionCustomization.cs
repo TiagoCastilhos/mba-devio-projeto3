@@ -8,6 +8,7 @@ public sealed class CommonCompositionCustomization : CompositeCustomization
     public CommonCompositionCustomization() 
         : base(
             new DateTimeOffsetCustomization(),
+            new IdentityCustomization(),
             new AutoMoqCustomization() { ConfigureMembers = true })
     { }
 }
