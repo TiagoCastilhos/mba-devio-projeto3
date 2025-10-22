@@ -8,7 +8,7 @@ internal sealed class CursoConfiguration : IEntityTypeConfiguration<Curso>
 {
     public void Configure(EntityTypeBuilder<Curso> builder)
     {
-        builder.ToTable("Curso");
+        builder.ToTable("Curso", a => a.ExcludeFromMigrations());
 
         builder
             .HasMany(c => c.Aulas)

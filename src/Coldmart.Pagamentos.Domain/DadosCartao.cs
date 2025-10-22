@@ -12,6 +12,7 @@ public class DadosCartao : Entity
     protected DadosCartao() { }
 
     public DadosCartao(string numeroCartao, string nomeTitular, DateTimeOffset dataValidade, string codigoSeguranca)
+        : base(Guid.NewGuid())
     {
         ArgumentException.ThrowIfNullOrEmpty(numeroCartao, nameof(numeroCartao));
         ArgumentException.ThrowIfNullOrEmpty(nomeTitular, nameof(nomeTitular));

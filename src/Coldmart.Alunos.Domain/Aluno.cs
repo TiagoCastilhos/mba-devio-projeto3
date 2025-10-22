@@ -6,11 +6,12 @@ public class Aluno : Entity, IAggregateRoot
 {
     public string Nome { get; protected set; }
     public string Email { get; protected set; }
-    public List<Matricula>? Matriculas { get; protected set; }
-    public List<Certificado>? Certificados { get; protected set; }
-    public List<HistoricoAluno>? Historicos { get; protected set; }
+    public virtual List<Matricula>? Matriculas { get; protected set; }
+    public virtual List<Certificado>? Certificados { get; protected set; }
+    public virtual List<HistoricoAluno>? Historicos { get; protected set; }
 
     public Aluno(string nome, string email)
+        : base(Guid.NewGuid())
     {
         ArgumentException.ThrowIfNullOrEmpty(nome, nameof(nome));
         ArgumentException.ThrowIfNullOrEmpty(email, nameof(email));

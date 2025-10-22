@@ -9,6 +9,6 @@ internal sealed class MatriculaConfiguration : IEntityTypeConfiguration<Matricul
     public void Configure(EntityTypeBuilder<Matricula> builder)
     {
         builder
-            .ToTable("Matricula");
+            .ToTable("Matricula", a => a.ExcludeFromMigrations());
     }
 }

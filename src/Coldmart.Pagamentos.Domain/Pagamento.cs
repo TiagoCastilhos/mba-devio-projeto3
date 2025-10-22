@@ -14,6 +14,7 @@ public class Pagamento : Entity, IAggregateRoot
     protected Pagamento() { }
 
     public Pagamento(DadosCartao cartao, decimal valor, Guid matriculaId)
+        : base(Guid.NewGuid())
     {
         ArgumentNullException.ThrowIfNull(cartao, nameof(cartao));
         ArgumentOutOfRangeException.ThrowIfLessThan(valor, 0, nameof(valor));

@@ -12,6 +12,7 @@ public class Aula : Entity
     protected Aula() { }
 
     public Aula(Curso curso, string titulo, TimeSpan duracao)
+        : base(Guid.NewGuid())
     {
         ArgumentNullException.ThrowIfNull(curso, nameof(curso));
         ArgumentException.ThrowIfNullOrEmpty(titulo, nameof(titulo));

@@ -12,6 +12,7 @@ public class Curso : Entity, IAggregateRoot
     protected Curso() { }
 
     public Curso(string nome)
+        : base(Guid.NewGuid())
     {
         ArgumentException.ThrowIfNullOrEmpty(nome, nameof(nome));
 

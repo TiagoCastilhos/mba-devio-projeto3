@@ -18,20 +18,6 @@ public abstract class EntityTypeConfiguration<T> : IEntityTypeConfiguration<T> w
             .HasKey(e => e.Id);
 
         builder
-            .Property(e => e.Id)
-            .ValueGeneratedOnAdd()
-            .HasDefaultValue(() => Guid.NewGuid());
-
-        builder
-            .Property(e => e.DataCriacao)
-            .ValueGeneratedOnAdd()
-            .HasDefaultValue(() => DateTimeOffset.UtcNow);
-
-        builder
-            .Property(e => e.Deletado)
-            .HasDefaultValue(false);
-
-        builder
             .HasQueryFilter(e => !e.Deletado);
 
         ConfigureEntity(builder);

@@ -11,6 +11,7 @@ public class ConteudoProgramatico : Entity
     protected ConteudoProgramatico() { }
 
     public ConteudoProgramatico(Curso curso, string titulo, string descricao)
+        : base(Guid.NewGuid())
     {
         ArgumentNullException.ThrowIfNull(curso, nameof(curso));
         ArgumentException.ThrowIfNullOrEmpty(titulo, nameof(titulo));

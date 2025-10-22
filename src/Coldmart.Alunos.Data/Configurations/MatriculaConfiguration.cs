@@ -12,16 +12,6 @@ internal sealed class MatriculaConfiguration : EntityTypeConfiguration<Matricula
     public override void ConfigureEntity(EntityTypeBuilder<Matricula> builder)
     {
         builder
-            .HasOne(a => a.Aluno)
-            .WithMany()
-            .HasForeignKey(k => k.AlunoId);
-
-        builder
-            .HasOne(a => a.Curso)
-            .WithMany()
-            .HasForeignKey(k => k.CursoId);
-
-        builder
             .Property(a => a.Status)
             .IsRequired()
             .HasMaxLength(50)
@@ -30,5 +20,15 @@ internal sealed class MatriculaConfiguration : EntityTypeConfiguration<Matricula
         builder
             .Property(a => a.DataAtualizacao)
             .IsRequired();
+
+        builder
+            .HasOne(a => a.Aluno)
+            .WithMany()
+            .HasForeignKey(k => k.AlunoId);
+
+        builder
+            .HasOne(a => a.Curso)
+            .WithMany()
+            .HasForeignKey(k => k.CursoId);
     }
 }

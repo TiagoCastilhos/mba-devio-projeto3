@@ -8,6 +8,6 @@ internal sealed class AulaConfiguration : IEntityTypeConfiguration<Aula>
 {
     public void Configure(EntityTypeBuilder<Aula> builder)
     {
-        builder.ToTable("Aula");
+        builder.ToTable("Aula", a => a.ExcludeFromMigrations());
     }
 }
