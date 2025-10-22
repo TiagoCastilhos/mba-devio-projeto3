@@ -5,7 +5,7 @@ namespace Coldmart.Pagamentos.Domain;
 public class Pagamento : Entity, IAggregateRoot
 {
     public Guid CartaoId { get; protected set; }
-    public DadosCartao Cartao { get; protected set; }
+    public virtual DadosCartao Cartao { get; protected set; }
     public StatusPagamento Status { get; protected set; }
     public DateTimeOffset DataAtualizacao { get; protected set; }
     public decimal Valor { get; protected set; }

@@ -7,11 +7,10 @@ Autor(es)
 Tiago Henrique de Castilhos
 
 1.1 Notas da primeira entrega
-A API não foi testada. Finalizei 'apenas' a modelagem e os testes unitários, mas não gerei migrations e não fiz o seed ainda da database pois não tive tempo.
+A API não foi testada. Finalizei 'apenas' a modelagem e os testes unitários, mas ainda não fiz o seed da database pois não tive tempo.
 Existem alguns ToDos no código, então ainda preciso:
 - Finalizar ToDos (incluem ajustes nas rotas, para deixar no padrão REST)
 - Obrigar autenticação nas rotas
-- Gerar migrations
 - Gerar scripts de seed
 - Ajustar possíveis erros
 

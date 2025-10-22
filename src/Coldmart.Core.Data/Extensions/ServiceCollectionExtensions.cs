@@ -14,7 +14,7 @@ public static class ServiceCollectionExtensions
             .AddEntityFrameworkStores<CoreDbContext>()
             .AddSignInManager();
 
-        services.AddDbContext<CoreDbContext>(options =>
+        services.AddDbContext<ICoreDbContext, CoreDbContext>(options =>
         {
             options.ConfigureDbContextOptions(configuration, isDevelopment);
         });

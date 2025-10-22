@@ -6,8 +6,8 @@ public class Curso : Entity, IAggregateRoot
 {
     public string Nome { get; protected set; }
     public TimeSpan DuracaoTotal { get; protected set; }
-    public List<ConteudoProgramatico>? ConteudosProgramaticos { get; protected set; }
-    public List<Aula>? Aulas { get; protected set; }
+    public virtual List<ConteudoProgramatico>? ConteudosProgramaticos { get; protected set; }
+    public virtual List<Aula>? Aulas { get; protected set; }
 
     protected Curso() { }
 

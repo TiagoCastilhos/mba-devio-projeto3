@@ -17,11 +17,6 @@ internal sealed class PagamentoConfiguration : EntityTypeConfiguration<Pagamento
             .HasConversion(p => p.ToString(), s => Enum.Parse<StatusPagamento>(s))
             .HasMaxLength(20);
 
-        builder
-            .Property(p => p.DataAtualizacao)
-            .ValueGeneratedOnAddOrUpdate()
-            .HasDefaultValue(() => DateTimeOffset.UtcNow);
-
         builder 
             .Property(p => p.Valor)
             .IsRequired()

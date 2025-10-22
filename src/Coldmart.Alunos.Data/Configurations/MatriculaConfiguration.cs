@@ -22,11 +22,6 @@ internal sealed class MatriculaConfiguration : EntityTypeConfiguration<Matricula
             .IsRequired();
 
         builder
-            .HasOne(a => a.Aluno)
-            .WithMany()
-            .HasForeignKey(k => k.AlunoId);
-
-        builder
             .HasOne(a => a.Curso)
             .WithMany()
             .HasForeignKey(k => k.CursoId);

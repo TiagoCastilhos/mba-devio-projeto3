@@ -14,10 +14,5 @@ internal sealed class CertificadoConfiguration : EntityTypeConfiguration<Certifi
             .HasOne(a => a.Curso)
             .WithMany()
             .HasForeignKey(k => k.CursoId);
-
-        builder
-            .HasOne(a => a.Aluno)
-            .WithMany()
-            .HasForeignKey(k => k.AlunoId);
     }
 }

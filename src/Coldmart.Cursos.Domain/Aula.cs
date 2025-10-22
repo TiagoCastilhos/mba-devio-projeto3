@@ -7,7 +7,7 @@ public class Aula : Entity
     public Guid CursoId { get; protected set; }
     public string Titulo { get; protected set; }
     public TimeSpan Duracao { get; protected set; }
-    public Curso Curso { get; protected set; }
+    public virtual Curso Curso { get; protected set; }
 
     protected Aula() { }
 
