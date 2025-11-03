@@ -60,4 +60,5 @@ app.MapControllers();
 
 await app.AplicarMigracoesAsync(builder.Environment);
 
+await app.SeedBancoDeDadosAsync();
 await app.RunAsync();

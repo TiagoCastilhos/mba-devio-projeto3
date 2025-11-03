@@ -1,5 +1,7 @@
 ﻿using Coldmart.Core.Data.Extensions;
+using Coldmart.Core.Data.Seeders;
 using Coldmart.Cursos.Data.Contexts;
+using Coldmart.Cursos.Data.Seeders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +15,8 @@ public static class ServiceCollectionExtensions
         {
             options.ConfigureDbContextOptions(configuration, isDevelopment);
         });
+
+        services.AddScoped<IDbContextSeeder, CursosDbContextSeeder>();
 
         return services;
     }

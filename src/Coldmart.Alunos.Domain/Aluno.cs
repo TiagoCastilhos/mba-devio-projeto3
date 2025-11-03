@@ -10,8 +10,8 @@ public class Aluno : Entity, IAggregateRoot
     public virtual List<Certificado>? Certificados { get; protected set; }
     public virtual List<HistoricoAluno>? Historicos { get; protected set; }
 
-    public Aluno(string nome, string email)
-        : base(Guid.NewGuid())
+    public Aluno(Guid id, string nome, string email)
+        : base(id)
     {
         ArgumentException.ThrowIfNullOrEmpty(nome, nameof(nome));
         ArgumentException.ThrowIfNullOrEmpty(email, nameof(email));
