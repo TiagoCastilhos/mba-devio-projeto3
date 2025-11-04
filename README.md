@@ -7,7 +7,6 @@ Autor(es)
 Tiago Henrique de Castilhos
 
 1.1 Notas da primeira entrega
-A API não foi testada. Finalizei 'apenas' a modelagem e os testes unitários.
 Existem alguns ToDos no código, então ainda preciso ajustar e arrumar possíveis erros
 
 2. Proposta do Projeto
