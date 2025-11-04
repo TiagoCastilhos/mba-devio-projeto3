@@ -7,12 +7,7 @@ Autor(es)
 Tiago Henrique de Castilhos
 
 1.1 Notas da primeira entrega
-A API não foi testada. Finalizei 'apenas' a modelagem e os testes unitários, mas ainda não fiz o seed da database pois não tive tempo.
-Existem alguns ToDos no código, então ainda preciso:
-- Finalizar ToDos (incluem ajustes nas rotas, para deixar no padrão REST)
-- Obrigar autenticação nas rotas
-- Gerar scripts de seed
-- Ajustar possíveis erros
+Existem alguns ToDos no código, então ainda preciso ajustar e arrumar possíveis erros
 
 2. Proposta do Projeto
 

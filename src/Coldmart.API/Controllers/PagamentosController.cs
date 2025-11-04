@@ -1,7 +1,9 @@
-﻿using Coldmart.Core.Notificacao;
+﻿using Coldmart.Core.Constants;
+using Coldmart.Core.Notificacao;
 using Coldmart.Pagamentos.Business.Requests;
 using Coldmart.Pagamentos.Business.ViewModels;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Coldmart.API.Controllers;
@@ -19,6 +21,7 @@ public class PagamentosController : CustomControllerBase
     }
 
     [HttpPost("")]
+    [Authorize(Roles = RolesConstants.Usuario)]
     public async Task<IActionResult> CriarPagamentoAsync([FromBody] PagamentoViewModel pagamento)
     {
         await _mediator.Send(new CriarPagamentoRequest()
@@ -30,6 +33,7 @@ public class PagamentosController : CustomControllerBase
     }
 
     [HttpPut("{id:guid}/aprovar")]
+    [Authorize(Roles = RolesConstants.Admin)]
     public async Task<IActionResult> AprovarPagamentoAsync([FromRoute] Guid id)
     {
         await _mediator.Send(new AprovarPagamentoRequest
@@ -41,6 +45,7 @@ public class PagamentosController : CustomControllerBase
     }
 
     [HttpPut("{id:guid}/cancelar")]
+    [Authorize(Roles = RolesConstants.Admin)]
     public async Task<IActionResult> CancelarPagamentoAsync([FromRoute] Guid id)
     {
         await _mediator.Send(new CancelarPagamentoRequest

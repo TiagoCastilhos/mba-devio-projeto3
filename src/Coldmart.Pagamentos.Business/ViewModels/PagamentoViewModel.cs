@@ -11,6 +11,6 @@ public class PagamentoViewModel
     public Guid MatriculaId { get; set; }
 
     [Required]
-    [MinLength(0)]
+    [Range(0, 99999)]
     public decimal Valor { get; set; }
 }

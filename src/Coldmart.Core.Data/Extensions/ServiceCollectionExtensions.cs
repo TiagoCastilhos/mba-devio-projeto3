@@ -1,4 +1,5 @@
 ﻿using Coldmart.Core.Data.Contexts;
+using Coldmart.Core.Data.Seeders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,7 @@ public static class ServiceCollectionExtensions
     {
         services
             .AddIdentityCore<IdentityUser>(ConfigureIdentityOptions)
+            .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<CoreDbContext>()
             .AddSignInManager();
 
@@ -19,12 +21,16 @@ public static class ServiceCollectionExtensions
             options.ConfigureDbContextOptions(configuration, isDevelopment);
         });
 
+        services.AddScoped<IDbSeeder, DbSeeder>();
+        services.AddScoped<IDbContextSeeder, CoreDbContextSeeder>();
+
         return services;
     }
 
     private static void ConfigureIdentityOptions(IdentityOptions options)
     {
         options.SignIn.RequireConfirmedAccount = false;
+        options.User.RequireUniqueEmail = true;
 
         options.Password.RequireDigit = true;
         options.Password.RequireLowercase = true;
