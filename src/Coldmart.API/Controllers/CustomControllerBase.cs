@@ -18,7 +18,7 @@ public abstract class CustomControllerBase : ControllerBase
         {
             return BadRequest(new ProblemDetails
             {
-                Detail = "Houve erros na sua solicitação.",
+                Detail = "Houveram erros na sua solicitação.",
                 Title = "Erros de validação",
                 Status = StatusCodes.Status400BadRequest,
                 Extensions =

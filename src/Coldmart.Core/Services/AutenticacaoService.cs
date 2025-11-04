@@ -17,9 +17,9 @@ public class AutenticacaoService : IAutenticacaoService
     private readonly INotificador _notificador;
 
     public AutenticacaoService(
-        UserManager<IdentityUser> userManager, 
-        SignInManager<IdentityUser> signInManager, 
-        JwtOptions jwtOptions, 
+        UserManager<IdentityUser> userManager,
+        SignInManager<IdentityUser> signInManager,
+        JwtOptions jwtOptions,
         INotificador notificador)
     {
         _userManager = userManager;
@@ -52,27 +52,33 @@ public class AutenticacaoService : IAutenticacaoService
             return null;
         }
 
-        return GerarTokenJwt(user);
+        return await GerarTokenJwtAsync(user);
     }
 
-    private string GerarTokenJwt(IdentityUser user)
+    private async Task<string> GerarTokenJwtAsync(IdentityUser user)
     {
         var key = Encoding.ASCII.GetBytes(_jwtOptions.SigningKey);
         var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
 
+        var roles = await _userManager.GetRolesAsync(user);
+
+        var claims = new ClaimsIdentity(
+        [
+            new(JwtRegisteredClaimNames.Iss, _jwtOptions.Issuer),
+            new(JwtRegisteredClaimNames.Aud, _jwtOptions.Audience),
+            new(JwtRegisteredClaimNames.Sub, user.Id),
+            new(JwtRegisteredClaimNames.Email, user.Email!),
+            new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new(JwtRegisteredClaimNames.Nbf, ToUnixEpochDate(DateTime.UtcNow).ToString()),
+            new(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(DateTime.UtcNow).ToString(), ClaimValueTypes.Integer64),
+        ]);
+
+        foreach (var role in roles)
+            claims.AddClaim(new Claim(ClaimTypes.Role, role));
+
         var securityTokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(
-            [
-                new(JwtRegisteredClaimNames.Iss, _jwtOptions.Issuer),
-                new(JwtRegisteredClaimNames.Aud, _jwtOptions.Audience),
-                new(JwtRegisteredClaimNames.Sub, user.Id),
-                new(JwtRegisteredClaimNames.Email, user.Email!),
-                new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new(ClaimTypes.Role, "Aluno"), //Verificar as roles
-                new(JwtRegisteredClaimNames.Nbf, ToUnixEpochDate(DateTime.UtcNow).ToString()),
-                new(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(DateTime.UtcNow).ToString(), ClaimValueTypes.Integer64),
-            ]),
+            Subject = claims,
             Expires = DateTime.UtcNow.AddHours(_jwtOptions.TokenExpirationInHours),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)

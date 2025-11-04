@@ -1,13 +1,14 @@
-﻿using Coldmart.Core.Notificacao;
+﻿using Coldmart.Core.Constants;
+using Coldmart.Core.Notificacao;
 using Coldmart.Cursos.Business.Requests;
 using Coldmart.Cursos.Business.ViewModels;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Coldmart.API.Controllers;
 
-//ToDo: ajustar rotas para seguir o padrão REST
-[ApiController]
+[ApiController, Authorize(Roles = RolesConstants.Admin)]
 [Route("api/[controller]")]
 public class CursosController : CustomControllerBase
 {
