@@ -22,7 +22,7 @@ internal class AlunosDbContextSeeder : IDbContextSeeder
         if (await _alunosDbContext.Alunos.AnyAsync(cancellationToken))
             return;
 
-        var usuarioAluno = await _coreDbContext.Users.FirstAsync(u => u.Email == "aluno@colmart.com", cancellationToken);
+        var usuarioAluno = await _coreDbContext.Users.FirstAsync(u => u.Email == "aluno@coldmart.com", cancellationToken);
 
         var aluno = new Aluno(Guid.Parse(usuarioAluno.Id), usuarioAluno.UserName!, usuarioAluno.Email!);
         await _alunosDbContext.Alunos.AddAsync(aluno, cancellationToken);

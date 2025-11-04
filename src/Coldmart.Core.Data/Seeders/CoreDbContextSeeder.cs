@@ -26,21 +26,21 @@ public class CoreDbContextSeeder : IDbContextSeeder
         await _roleManager.CreateAsync(new IdentityRole(RolesConstants.Admin));
         await _roleManager.CreateAsync(new IdentityRole(RolesConstants.Usuario));
 
-        var usuarioAdmin = new IdentityUser("admin@colmart.com")
+        var usuarioAdmin = new IdentityUser("admin@coldmart.com")
         {
             Id = Guid.NewGuid().ToString(),
-            UserName = "admin@colmart.com",
-            Email = "admin@colmart.com",
+            UserName = "admin@coldmart.com",
+            Email = "admin@coldmart.com",
         };
 
         await _userManager.CreateAsync(usuarioAdmin, "Admin@123");
         await _userManager.AddToRoleAsync(usuarioAdmin, RolesConstants.Admin);
 
-        var usuario = new IdentityUser("aluno@colmart.com")
+        var usuario = new IdentityUser("aluno@coldmart.com")
         {
             Id = Guid.NewGuid().ToString(),
-            UserName = "aluno@colmart.com",
-            Email = "aluno@colmart.com",
+            UserName = "aluno@coldmart.com",
+            Email = "aluno@coldmart.com",
         };
 
         await _userManager.CreateAsync(usuario, "Aluno@123");

@@ -30,6 +30,7 @@ public static class ServiceCollectionExtensions
     private static void ConfigureIdentityOptions(IdentityOptions options)
     {
         options.SignIn.RequireConfirmedAccount = false;
+        options.User.RequireUniqueEmail = true;
 
         options.Password.RequireDigit = true;
         options.Password.RequireLowercase = true;
