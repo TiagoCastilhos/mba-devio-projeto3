@@ -6,9 +6,6 @@ Autor(es)
 
 Tiago Henrique de Castilhos
 
-1.1 Notas da primeira entrega
-Existem alguns ToDos no código, então ainda preciso ajustar e arrumar possíveis erros
-
 2. Proposta do Projeto
 
 O projeto consiste em:
@@ -102,9 +99,9 @@ JWT para API: As chaves de configuração do JWT estão no appsettings.json.
 Migrações do Banco de Dados: As migrações são gerenciadas pelo Entity Framework Core. Não é necessário aplicar devido a configuração do Seed de dados.
 
 8. Documentação da API
-A documentação da API está disponível através do Swagger. Após iniciar a API, acesse a documentação em:
+A documentação da API está disponível através do Swagger. Após iniciar a API, um navegador deve abrir no endereço da documentação da API, ou então acesse em:
 
-https://localhost:033/swagger
+https://localhost:7033/swagger
 
 9. Avaliação
 
