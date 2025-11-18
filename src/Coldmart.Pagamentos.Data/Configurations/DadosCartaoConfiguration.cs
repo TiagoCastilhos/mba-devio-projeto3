@@ -1,9 +1,11 @@
-﻿using Coldmart.Core.Data.Configurations;
+﻿using System.Diagnostics.CodeAnalysis;
+using Coldmart.Core.Data.Configurations;
 using Coldmart.Pagamentos.Domain;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Coldmart.Pagamentos.Data.Configurations;
 
+[ExcludeFromCodeCoverage]
 internal sealed class DadosCartaoConfiguration : EntityTypeConfiguration<DadosCartao>
 {
     public override string TableName => "DadosCartao";

@@ -20,11 +20,11 @@ public class CursosService : IRequestHandler<CriarCursoRequest>
 
     public async Task Handle(CriarCursoRequest request, CancellationToken cancellationToken)
     {
-        var curso = new Curso(request.Curso.Nome!);
+        var curso = new Curso(request.Curso.Nome);
 
-        foreach (var conteudoProgramaticoViewModel in request.Curso.ConteudosProgramaticos!)
+        foreach (var conteudoProgramaticoViewModel in request.Curso.ConteudosProgramaticos)
         {
-            var conteudoProgramatico = new ConteudoProgramatico(curso, conteudoProgramaticoViewModel.Titulo!, conteudoProgramaticoViewModel.Descricao!);
+            var conteudoProgramatico = new ConteudoProgramatico(curso, conteudoProgramaticoViewModel.Titulo, conteudoProgramaticoViewModel.Descricao);
             curso.AdicionarConteudoProgramatico(conteudoProgramatico);
 
             await _cursosDbContext.ConteudosProgramaticos.AddAsync(conteudoProgramatico, cancellationToken);
@@ -44,7 +44,7 @@ public class CursosService : IRequestHandler<CriarCursoRequest>
         }
 
         //ToDo: Adicionar suporte aos materiais da aula
-        var aula = new Aula(curso, request.Aula.Titulo!, TimeSpan.FromSeconds(request.Aula.DuracaoSegundos));
+        var aula = new Aula(curso, request.Aula.Titulo, TimeSpan.FromSeconds(request.Aula.DuracaoSegundos));
         await _cursosDbContext.Aulas.AddAsync(aula, cancellationToken);
 
         curso.AdicionarAula(aula);

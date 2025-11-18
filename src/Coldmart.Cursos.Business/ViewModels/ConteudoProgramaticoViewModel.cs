@@ -6,9 +6,9 @@ public sealed class ConteudoProgramaticoViewModel
 {
     [Required]
     [Length(50, 100)]
-    public string? Titulo { get; set; }
+    public string Titulo { get; set; }
 
     [Required]
     [Length(50, 100)]
-    public string? Descricao { get; set; }
+    public string Descricao { get; set; }
 }

@@ -1,8 +1,10 @@
-﻿using Coldmart.Alunos.Domain;
+﻿using System.Diagnostics.CodeAnalysis;
+using Coldmart.Alunos.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coldmart.Alunos.Data.Contexts;
 
+[ExcludeFromCodeCoverage]
 public sealed class AlunosDbContext : DbContext, IAlunosDbContext
 {
     public DbSet<Aluno> Alunos { get; set; }
@@ -20,8 +22,6 @@ public sealed class AlunosDbContext : DbContext, IAlunosDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AlunosDbContext).Assembly);
-
-        //SeedDatabase.Seed(modelBuilder);
 
         base.OnModelCreating(modelBuilder);
     }

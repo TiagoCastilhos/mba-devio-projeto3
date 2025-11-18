@@ -1,10 +1,12 @@
-﻿using System.Security.Claims;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Security.Claims;
 using Coldmart.Core.Contexts;
 using Coldmart.Core.Tests.Attributes;
 using Microsoft.AspNetCore.Http;
 
 namespace Coldmart.Core.Tests.Contexts;
 
+[ExcludeFromCodeCoverage]
 public class UsuarioContextTests
 {
     [Theory, AutoDomainData]

@@ -1,4 +1,5 @@
-﻿using Coldmart.Alunos.Business.Requests;
+﻿using System.Diagnostics.CodeAnalysis;
+using Coldmart.Alunos.Business.Requests;
 using Coldmart.Alunos.Data.Extensions;
 using Coldmart.Core.Data.Extensions;
 using Coldmart.Core.Eventos;
@@ -10,6 +11,7 @@ using Coldmart.Pagamentos.Data.Extensions;
 
 namespace Coldmart.API.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection ConfigurarInjecaoDependencia(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)

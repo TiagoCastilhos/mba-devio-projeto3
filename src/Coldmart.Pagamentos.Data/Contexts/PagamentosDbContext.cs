@@ -1,8 +1,10 @@
-﻿using Coldmart.Pagamentos.Domain;
+﻿using System.Diagnostics.CodeAnalysis;
+using Coldmart.Pagamentos.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coldmart.Pagamentos.Data.Contexts;
 
+[ExcludeFromCodeCoverage]
 public class PagamentosDbContext : DbContext, IPagamentosDbContext
 {
     public DbSet<Pagamento> Pagamentos { get; set; }
@@ -17,8 +19,6 @@ public class PagamentosDbContext : DbContext, IPagamentosDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(PagamentosDbContext).Assembly);
-
-        //SeedDatabase.Seed(modelBuilder);
 
         base.OnModelCreating(modelBuilder);
     }

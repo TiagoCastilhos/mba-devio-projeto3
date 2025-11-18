@@ -1,10 +1,12 @@
-﻿using Coldmart.Core.Data.Configurations;
+﻿using System.Diagnostics.CodeAnalysis;
+using Coldmart.Core.Data.Configurations;
 using Coldmart.Pagamentos.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Coldmart.Pagamentos.Data.Configurations;
 
+[ExcludeFromCodeCoverage]
 internal sealed class PagamentoConfiguration : EntityTypeConfiguration<Pagamento>
 {
     public override string TableName => "Pagamento";

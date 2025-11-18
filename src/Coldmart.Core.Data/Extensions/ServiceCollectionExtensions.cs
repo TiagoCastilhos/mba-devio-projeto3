@@ -1,4 +1,5 @@
-﻿using Coldmart.Core.Data.Contexts;
+﻿using System.Diagnostics.CodeAnalysis;
+using Coldmart.Core.Data.Contexts;
 using Coldmart.Core.Data.Seeders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Coldmart.Core.Data.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddCoreData(this IServiceCollection services, IConfiguration configuration, bool isDevelopment)

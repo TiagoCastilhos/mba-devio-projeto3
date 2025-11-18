@@ -1,9 +1,11 @@
-﻿using Coldmart.Core.Data.Configurations;
+﻿using System.Diagnostics.CodeAnalysis;
+using Coldmart.Core.Data.Configurations;
 using Coldmart.Cursos.Domain;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Coldmart.Cursos.Data.Configurations;
 
+[ExcludeFromCodeCoverage]
 internal sealed class AulaConfiguration : EntityTypeConfiguration<Aula>
 {
     public override string TableName => "Aula";

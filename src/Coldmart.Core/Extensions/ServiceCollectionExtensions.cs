@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using Coldmart.Core.Contexts;
 using Coldmart.Core.Notificacao;
 using Coldmart.Core.Options;
@@ -10,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Coldmart.Core.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddCoreServices(this IServiceCollection services, IConfiguration configuration)

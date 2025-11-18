@@ -1,10 +1,12 @@
-﻿using Coldmart.Core.Data.Seeders;
+﻿using System.Diagnostics.CodeAnalysis;
+using Coldmart.Core.Data.Seeders;
 using Coldmart.Cursos.Data.Contexts;
 using Coldmart.Cursos.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coldmart.Cursos.Data.Seeders;
 
+[ExcludeFromCodeCoverage]
 public class CursosDbContextSeeder : IDbContextSeeder
 {
     private readonly ICursosDbContext _cursosDbContext;

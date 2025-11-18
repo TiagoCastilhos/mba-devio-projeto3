@@ -1,10 +1,12 @@
-﻿using Coldmart.Core.Constants;
+﻿using System.Diagnostics.CodeAnalysis;
+using Coldmart.Core.Constants;
 using Coldmart.Core.Data.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coldmart.Core.Data.Seeders;
 
+[ExcludeFromCodeCoverage]
 public class CoreDbContextSeeder : IDbContextSeeder
 {
     private readonly UserManager<IdentityUser> _userManager;

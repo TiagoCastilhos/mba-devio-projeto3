@@ -1,4 +1,5 @@
-﻿using AutoFixture;
+﻿using System.Diagnostics.CodeAnalysis;
+using AutoFixture;
 using AutoFixture.Xunit2;
 using Coldmart.Core.Notificacao;
 using Coldmart.Core.Options;
@@ -10,6 +11,7 @@ using Moq;
 
 namespace Coldmart.Core.Tests.Services;
 
+[ExcludeFromCodeCoverage]
 public class AutenticacaoServiceTests
 {
     [Theory, AutoDomainData]

@@ -1,9 +1,11 @@
-﻿using Coldmart.Alunos.Domain;
+﻿using System.Diagnostics.CodeAnalysis;
+using Coldmart.Alunos.Domain;
 using Coldmart.Core.Data.Configurations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Coldmart.Alunos.Data.Configurations;
 
+[ExcludeFromCodeCoverage]
 internal sealed class CertificadoConfiguration : EntityTypeConfiguration<Certificado>
 {
     public override string TableName => "Certificado";

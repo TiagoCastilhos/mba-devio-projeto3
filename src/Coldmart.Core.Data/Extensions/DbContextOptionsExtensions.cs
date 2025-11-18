@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Coldmart.Core.Data.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class DbContextOptionsExtensions
 {
     public static void ConfigureDbContextOptions(this DbContextOptionsBuilder options, IConfiguration configuration, bool isDevelopment)

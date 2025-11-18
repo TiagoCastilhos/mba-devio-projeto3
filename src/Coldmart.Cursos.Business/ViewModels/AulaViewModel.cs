@@ -6,7 +6,7 @@ public sealed class AulaViewModel
 {
     [Required]
     [Length(2, 60)]
-    public string? Titulo { get; set; }
+    public string Titulo { get; set; }
 
     [Required]
     [Range(10, 1800)]

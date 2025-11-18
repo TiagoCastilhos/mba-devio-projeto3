@@ -34,10 +34,10 @@ public class PagamentosService :
         }
 
         var dadosCartao = new DadosCartao(
-            request.Pagamento.Cartao.NumeroCartao!,
-            request.Pagamento.Cartao.NomeTitular!,
+            request.Pagamento.Cartao.NumeroCartao,
+            request.Pagamento.Cartao.NomeTitular,
             request.Pagamento.Cartao.DataValidade,
-            request.Pagamento.Cartao.CodigoSeguranca!);
+            request.Pagamento.Cartao.CodigoSeguranca);
 
         var novoPagamento = new Pagamento(
             dadosCartao,

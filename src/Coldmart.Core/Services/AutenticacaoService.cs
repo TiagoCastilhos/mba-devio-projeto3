@@ -28,7 +28,7 @@ public class AutenticacaoService : IAutenticacaoService
         _notificador = notificador;
     }
 
-    public async Task<string?> GerarTokenAsync(LogarViewModel inputModel)
+    public async Task<string> GerarTokenAsync(LogarViewModel inputModel)
     {
         var user = await _userManager.FindByEmailAsync(inputModel.Email);
 
@@ -67,7 +67,7 @@ public class AutenticacaoService : IAutenticacaoService
             new(JwtRegisteredClaimNames.Iss, _jwtOptions.Issuer),
             new(JwtRegisteredClaimNames.Aud, _jwtOptions.Audience),
             new(JwtRegisteredClaimNames.Sub, user.Id),
-            new(JwtRegisteredClaimNames.Email, user.Email!),
+            new(JwtRegisteredClaimNames.Email, user.Email),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new(JwtRegisteredClaimNames.Nbf, ToUnixEpochDate(DateTime.UtcNow).ToString()),
             new(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(DateTime.UtcNow).ToString(), ClaimValueTypes.Integer64),

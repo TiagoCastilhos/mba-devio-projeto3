@@ -1,4 +1,5 @@
-﻿using Coldmart.Alunos.Data.Contexts;
+﻿using System.Diagnostics.CodeAnalysis;
+using Coldmart.Alunos.Data.Contexts;
 using Coldmart.Alunos.Domain;
 using Coldmart.Core.Data.Contexts;
 using Coldmart.Core.Data.Seeders;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coldmart.Alunos.Data.Seeders;
 
+[ExcludeFromCodeCoverage]
 internal class AlunosDbContextSeeder : IDbContextSeeder
 {
     private readonly IAlunosDbContext _alunosDbContext;

@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Coldmart.Core.Data.Seeders;
 
+[ExcludeFromCodeCoverage]
 public class DbSeeder : IDbSeeder
 {
     private readonly IServiceProvider _serviceProvider;

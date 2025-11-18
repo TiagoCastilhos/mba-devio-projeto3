@@ -5,10 +5,10 @@ namespace Coldmart.Alunos.Domain.Tests;
 public class AlunoTests
 {
     [Theory, AutoDomainData]
-    public void CriarAluno_FornecidosNomeEEmail_DeveCriar(string nome, string email)
+    public void CriarAluno_FornecidosNomeEEmail_DeveCriar(Guid id, string nome, string email)
     {
         //act
-        var aluno = new Aluno(nome, email);
+        var aluno = new Aluno(id, nome, email);
 
         //assert
         Assert.Equal(nome, aluno.Nome);
@@ -16,19 +16,19 @@ public class AlunoTests
     }
 
     [Theory, AutoDomainData]
-    public void CriarAluno_NomeVazioOuNulo_DeveLancarExcecao(string email)
+    public void CriarAluno_NomeVazioOuNulo_DeveLancarExcecao(Guid id, string email)
     {
         //act & assert
-        Assert.Throws<ArgumentException>(() => new Aluno("", email));
-        Assert.Throws<ArgumentNullException>(() => new Aluno(null!, email));
+        Assert.Throws<ArgumentException>(() => new Aluno(id, "", email));
+        Assert.Throws<ArgumentNullException>(() => new Aluno(id, null!, email));
     }
 
     [Theory, AutoDomainData]
-    public void CriarAluno_EmailVazioOuNulo_DeveLancarExcecao(string nome)
+    public void CriarAluno_EmailVazioOuNulo_DeveLancarExcecao(Guid id, string nome)
     {
         //act & assert
-        Assert.Throws<ArgumentException>(() => new Aluno(nome, ""));
-        Assert.Throws<ArgumentNullException>(() => new Aluno(nome, null!));
+        Assert.Throws<ArgumentException>(() => new Aluno(id, nome, ""));
+        Assert.Throws<ArgumentNullException>(() => new Aluno(id, nome, null!));
     }
 
     [Theory, AutoDomainData]

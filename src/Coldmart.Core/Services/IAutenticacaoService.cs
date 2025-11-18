@@ -4,5 +4,5 @@ namespace Coldmart.Core.Services;
 
 public interface IAutenticacaoService
 {
-    Task<string?> GerarTokenAsync(LogarViewModel inputModel);
+    Task<string> GerarTokenAsync(LogarViewModel inputModel);
 }

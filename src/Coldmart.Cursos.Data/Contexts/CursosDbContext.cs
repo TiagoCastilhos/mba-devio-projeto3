@@ -1,8 +1,10 @@
-﻿using Coldmart.Cursos.Domain;
+﻿using System.Diagnostics.CodeAnalysis;
+using Coldmart.Cursos.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coldmart.Cursos.Data.Contexts;
 
+[ExcludeFromCodeCoverage]
 public class CursosDbContext : DbContext, ICursosDbContext
 {
     public DbSet<Curso> Cursos { get; set; }
@@ -17,8 +19,6 @@ public class CursosDbContext : DbContext, ICursosDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(CursosDbContext).Assembly);
-
-        //SeedDatabase.Seed(modelBuilder);
 
         base.OnModelCreating(modelBuilder);
     }

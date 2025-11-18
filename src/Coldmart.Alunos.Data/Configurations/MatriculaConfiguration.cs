@@ -1,10 +1,12 @@
-﻿using Coldmart.Alunos.Domain;
+﻿using System.Diagnostics.CodeAnalysis;
+using Coldmart.Alunos.Domain;
 using Coldmart.Alunos.Domain.Enumerations;
 using Coldmart.Core.Data.Configurations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Coldmart.Alunos.Data.Configurations;
 
+[ExcludeFromCodeCoverage]
 internal sealed class MatriculaConfiguration : EntityTypeConfiguration<Matricula>
 {
     public override string TableName => "Matricula";
